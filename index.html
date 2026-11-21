@@ -1,810 +1,140 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ShotStarter · AI 内容助手</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ShotStart · 项目讲解</title>
 <style>
-  :root{
-    --accent:#FF5A2C; --accent-2:#FF8A5C; --accent-soft:#FFF1EA;
-    --bg:#FAFAF8; --card:#FFFFFF; --ink:#111418; --gray:#6B7280;
-    --hair:#E5E7EB; --green:#1D7A4F; --green-bg:#E7F4EC; --red:#B3261E; --red-bg:#FBEAE8;
-    --navy:#0B1220;
-    --shadow-sm:0 1px 2px rgba(17,20,24,.05),0 1px 3px rgba(17,20,24,.06);
-    --shadow-lg:0 12px 32px rgba(17,20,24,.08),0 2px 8px rgba(17,20,24,.05);
-    --ease:cubic-bezier(.32,.72,0,1);
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  body{background:var(--bg);color:var(--ink);line-height:1.55;
-       font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
-       -webkit-font-smoothing:antialiased}
-  body.zh{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI','PingFang SC','Microsoft YaHei',Roboto,Arial,sans-serif}
-  h1,h2,h3{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI','Helvetica Neue',Arial,sans-serif;
-           letter-spacing:-.02em;font-weight:700}
-  .wrap{max-width:1040px;margin:0 auto;padding:0 24px 80px}
-
-  nav.top{position:sticky;top:0;z-index:50;background:rgba(250,250,248,.78);
-          -webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
-          border-bottom:1px solid var(--hair)}
-  .top-inner{max-width:1040px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:12px}
-  .brand{font-weight:700;font-size:17px;display:flex;align-items:center;gap:9px;letter-spacing:-.01em}
-  .brand .mark{width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent-2));
-               display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:800;box-shadow:var(--shadow-sm)}
-  .brand .tag{font-size:10px;font-weight:700;letter-spacing:.14em;color:var(--gray);background:#fff;
-              border:1px solid var(--hair);border-radius:6px;padding:2px 6px}
-  .top-right{margin-left:auto;display:flex;align-items:center;gap:10px}
-  .seg-control{display:inline-flex;background:#E9EAEC;border-radius:99px;padding:2px}
-  .seg-control button{border:0;background:transparent;padding:5px 14px;font-size:12px;font-weight:600;
-                      cursor:pointer;color:var(--gray);border-radius:99px;transition:all .2s var(--ease)}
-  .seg-control button.on{background:#fff;color:var(--ink);box-shadow:var(--shadow-sm)}
-  .link-btn{border:0;background:transparent;color:#333;font-size:13px;font-weight:600;cursor:pointer;
-            padding:7px 13px;border-radius:99px;transition:background .15s}
-  .link-btn:hover{background:rgba(0,0,0,.05)}
-
-  .hero{text-align:center;padding:64px 0 0}
-  .eyebrow{font-size:12px;font-weight:600;letter-spacing:.02em;color:var(--accent);text-transform:uppercase}
-  .hero h1{font-size:clamp(36px,6vw,58px);line-height:1.08;margin-top:14px;font-weight:750;letter-spacing:-.03em}
-  .hero h1 .grad{background:linear-gradient(100deg,var(--accent) 0%,var(--accent-2) 55%,#FFC2A8 100%);
-                 -webkit-background-clip:text;background-clip:text;color:transparent}
-  .hero p{color:var(--gray);max-width:560px;margin:18px auto 0;font-size:15px}
-
-  .panel{background:var(--card);border-radius:24px;padding:30px;margin-top:44px;
-         box-shadow:var(--shadow-lg);border:1px solid #fff}
-  .step{display:flex;align-items:center;gap:12px;margin-bottom:18px}
-  .step .num{width:26px;height:26px;border-radius:50%;background:var(--accent-soft);color:var(--accent);
-             display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:800}
-  .step h2{font-size:17px;letter-spacing:-.01em}
-  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-  label{display:block;font-size:12px;font-weight:600;color:var(--gray);margin-bottom:8px}
-  .chips{display:flex;gap:6px;flex-wrap:wrap}
-  .chip{border:1px solid var(--hair);background:#fff;border-radius:99px;padding:9px 15px;font-size:13px;
-        font-weight:600;color:var(--gray);cursor:pointer;transition:all .18s var(--ease)}
-  .chip:hover{border-color:#D1D5DB}
-  .chip.on{background:var(--ink);border-color:var(--ink);color:#fff;box-shadow:var(--shadow-sm)}
-  .tpl-desc{font-size:12px;color:var(--gray);margin-top:8px;min-height:18px}
-  select,input[type=text],input[type=password]{width:100%;padding:12px 14px;border:1px solid var(--hair);
-        border-radius:14px;font-size:14px;background:#fff;color:var(--ink);transition:border-color .15s,box-shadow .15s;
-        -webkit-appearance:none;appearance:none;
-        background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg width='10' height='6' viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236B7280' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-        background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
-  select:focus,input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(255,90,44,.15)}
-  .actions{display:flex;gap:12px;align-items:center;margin-top:26px;flex-wrap:wrap}
-  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:99px;
-       padding:13px 26px;font-size:15px;font-weight:600;cursor:pointer;transition:all .2s var(--ease)}
-  .btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;
-               box-shadow:0 4px 16px rgba(255,90,44,.32)}
-  .btn.primary:hover{transform:scale(1.02);box-shadow:0 8px 22px rgba(255,90,44,.38)}
-  .btn.primary:active{transform:scale(.98)}
-  .btn.text{background:transparent;color:#333;padding:13px 18px}
-  .btn.text:hover{background:rgba(0,0,0,.05)}
-  .btn.small{padding:7px 15px;font-size:13px}
-  .btn:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
-  .spinner{width:14px;height:14px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;
-           animation:spin .7s linear infinite;display:none}
-  .loading .spinner{display:inline-block}
-  @keyframes spin{to{transform:rotate(360deg)}}
-  .status{font-size:13px;color:var(--gray)}
-  .err-text{color:var(--red);background:var(--red-bg);border-radius:14px;padding:13px 16px;font-size:13px;
-            margin-top:18px;display:none;white-space:pre-wrap}
-
-  .out{margin-top:40px;display:none}
-  .out.show{display:block;animation:fadeUp .45s var(--ease)}
-  @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-  .rowhead{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px}
-  .rowhead h2{font-size:24px}
-  .badge{display:inline-block;font-size:11px;font-weight:700;padding:4px 12px;border-radius:99px;letter-spacing:.03em;margin-right:10px}
-  .badge.live{background:var(--green-bg);color:var(--green)}
-  .badge.lib{background:#EDEFF2;color:var(--gray)}
-  .seg{display:grid;grid-template-columns:130px 1fr;gap:16px;background:var(--card);border:1px solid var(--hair);
-       border-radius:18px;padding:16px 18px;margin-top:10px;box-shadow:var(--shadow-sm);transition:box-shadow .2s}
-  .seg:hover{box-shadow:var(--shadow-lg)}
-  .seg .t{font-size:11px;font-weight:700;color:var(--accent);background:var(--accent-soft);border-radius:99px;
-          padding:6px 10px;height:fit-content;text-align:center;letter-spacing:.04em}
-  .seg .vo{font-weight:600;font-size:14.5px}
-  .seg .vis{font-size:13px;color:var(--gray);margin-top:4px}
-  table.sb{width:100%;border-collapse:separate;border-spacing:0;font-size:13px;margin-top:14px;
-           background:var(--card);border:1px solid var(--hair);border-radius:18px;overflow:hidden;box-shadow:var(--shadow-sm)}
-  table.sb th,table.sb td{padding:12px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--hair)}
-  table.sb tr:last-child td{border-bottom:0}
-  table.sb th{background:var(--navy);color:#F5F6F8;font-size:12px;font-weight:600}
-  table.sb td:first-child{font-weight:700;color:var(--accent)}
-  .captionbox{background:var(--navy);color:#F5F6F8;border-radius:22px;padding:28px;margin-top:18px;box-shadow:var(--shadow-lg)}
-  .captionbox .eyebrow{color:#FFB59C;font-size:11px}
-  .captionbox .cap{white-space:pre-wrap;font-size:15px;margin-top:12px;line-height:1.6}
-  .tags{color:#FFB59C;font-size:13px;margin-top:12px;word-break:break-word;line-height:1.8}
-  .cta-line{margin-top:14px;font-weight:600;color:#fff}
-  .tsec{background:var(--card);border:1px solid var(--hair);border-radius:18px;padding:18px 20px;margin-top:12px;box-shadow:var(--shadow-sm)}
-  .tsec h4{font-size:12px;font-weight:700;letter-spacing:.08em;color:var(--accent);text-transform:uppercase;margin-bottom:8px}
-  .tsec .txt{white-space:pre-wrap;font-size:14.5px}
-  .tsec ul{list-style:none}
-  .tsec ul li{padding:9px 0;border-bottom:1px solid var(--hair);font-size:14px;display:flex;gap:10px}
-  .tsec ul li:last-child{border-bottom:0}
-  .tsec ul li .k{font-weight:700;color:var(--accent);white-space:nowrap;min-width:52px}
-  .tsec .qa{margin-top:10px}
-  .tsec .qa .q{font-weight:700}
-  .tsec .qa .a{color:var(--gray);font-size:13.5px;margin:2px 0 10px}
-  .strip{width:100%;aspect-ratio:21/9;object-fit:cover;border-radius:18px;margin-bottom:14px;border:1px solid var(--hair);box-shadow:var(--shadow-sm)}
-  .thumb{width:86px;height:86px;object-fit:cover;border-radius:10px;display:block;margin-top:6px;border:1px solid var(--hair)}
-  .item-img{display:block;width:76px;height:76px;object-fit:cover;border-radius:10px;margin-top:8px;border:1px solid var(--hair)}
-  .note{font-size:12px;color:var(--gray);margin-top:16px;text-align:center}
-
-  .skel{display:none;margin-top:40px}
-  .skel.show{display:block}
-  .skel .bar{height:16px;border-radius:99px;background:linear-gradient(90deg,#EEF0F2 25%,#F8F9FA 50%,#EEF0F2 75%);
-             background-size:200% 100%;animation:shimmer 1.2s infinite;margin-top:14px}
-  @keyframes shimmer{to{background-position:-200% 0}}
-
-  .hist{margin-top:40px}
-  .hist-item{padding:14px 16px;border:1px solid var(--hair);border-radius:14px;margin-top:8px;background:#fff;
-             cursor:pointer;font-size:13px;transition:box-shadow .2s,border-color .2s}
-  .hist-item:hover{border-color:var(--accent);box-shadow:var(--shadow-lg)}
-
-  dialog{border:0;border-radius:24px;padding:30px;max-width:500px;width:92%;background:#fff;box-shadow:var(--shadow-lg)}
-  dialog::backdrop{background:rgba(17,20,24,.4);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
-  dialog h2{font-size:21px;margin-bottom:4px}
-  .field{margin-top:18px}
-  .hint{font-size:12px;color:var(--gray);margin-top:8px;line-height:1.6}
-  code{background:#F3F4F6;border-radius:5px;padding:1px 5px;font-size:11px;word-break:break-all}
-  .toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(16px);background:var(--navy);
-         color:#fff;padding:11px 22px;border-radius:99px;font-size:13px;opacity:0;pointer-events:none;
-         transition:opacity .25s,transform .25s var(--ease);z-index:99;box-shadow:var(--shadow-lg)}
-  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-  footer{margin-top:64px;text-align:center;font-size:12px;color:var(--gray)}
-  @media(max-width:760px){
-    .grid3{grid-template-columns:1fr}
-    .seg{grid-template-columns:1fr}
-    .seg .t{text-align:left;width:fit-content}
-    .hero{padding-top:44px}
-    .panel{padding:22px}
-    table.sb{font-size:12px}
-  }
-  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+:root{--coral:#FF5A2C;--navy:#0F1B2D;--cream:#FAF6F0;--ink:#1B2733;--muted:#6B6259;--line:#E8DED2;--soft:#F3ECE3;--coral-soft:#FFE9E1}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:var(--cream);color:var(--ink);line-height:1.7}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+header{position:sticky;top:0;z-index:50;background:rgba(250,246,240,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--navy);font-size:18px;text-decoration:none}
+.logo i{width:28px;height:28px;border-radius:9px;background:var(--coral);color:#fff;display:grid;place-items:center;font-style:normal;font-size:15px}
+nav a{color:var(--muted);text-decoration:none;font-size:14px;margin-left:22px}
+nav a:hover{color:var(--coral)}
+.hero{padding:72px 0 56px;display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center}
+.eyebrow{color:var(--coral);font-weight:700;font-size:13px;letter-spacing:.18em;margin-bottom:16px}
+h1{font-size:52px;line-height:1.15;color:var(--navy);letter-spacing:-.02em;margin-bottom:20px}
+.hero p{color:var(--muted);font-size:17px;max-width:44ch}
+.hero img{width:100%;border-radius:24px;box-shadow:0 24px 60px rgba(15,27,45,.14)}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.badges span{background:#fff;border:1px solid var(--line);border-radius:999px;padding:6px 16px;font-size:13px;color:var(--navy)}
+section{padding:56px 0}
+h2{font-size:34px;color:var(--navy);letter-spacing:-.01em;margin-bottom:12px}
+.lead{color:var(--muted);max-width:70ch;margin-bottom:32px}
+.num{color:var(--coral);font-weight:800;font-size:14px;letter-spacing:.15em;display:block;margin-bottom:8px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:28px}
+.card h3{color:var(--navy);font-size:19px;margin-bottom:10px}
+.card p{color:var(--muted);font-size:14.5px}
+.shots{display:grid;gap:28px}
+figure{background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden}
+figure img{width:100%;display:block}
+figcaption{padding:16px 24px;font-size:14px;color:var(--muted);border-top:1px solid var(--line)}
+figcaption b{color:var(--navy);font-size:15px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.btn{display:inline-block;background:var(--coral);color:#fff;text-decoration:none;font-weight:700;font-size:15px;padding:14px 32px;border-radius:999px;margin-top:18px}
+.btn.ghost{background:#fff;color:var(--navy);border:1px solid var(--line)}
+.links{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.linkcard{background:var(--navy);color:var(--cream);border-radius:24px;padding:36px;display:flex;flex-direction:column;gap:12px}
+.linkcard h3{font-size:22px}
+.linkcard p{color:#B9C2CE;font-size:14.5px;flex:1}
+.linkcard a{align-self:flex-start;background:var(--coral);color:#fff;text-decoration:none;font-weight:700;padding:12px 28px;border-radius:999px;font-size:14px}
+.linkcard.light{background:#fff;border:1px solid var(--line);color:var(--navy)}
+.linkcard.light p{color:var(--muted)}
+video{width:100%;border-radius:24px;display:block;background:var(--navy)}
+ul.feat{list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:12px 28px;margin-top:8px}
+ul.feat li{padding-left:22px;position:relative;color:var(--muted);font-size:15px}
+ul.feat li::before{content:"";position:absolute;left:0;top:11px;width:8px;height:8px;border-radius:50%;background:var(--coral)}
+footer{background:var(--navy);color:#B9C2CE;text-align:center;padding:40px 24px;margin-top:40px;font-size:14px}
+footer b{color:var(--cream);display:block;font-size:20px;margin-bottom:8px}
+@media(max-width:900px){.hero,.two,.links{grid-template-columns:1fr}.cards{grid-template-columns:1fr}h1{font-size:38px}nav{display:none}ul.feat{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<nav class="top"><div class="top-inner">
-  <div class="brand"><span class="mark">S</span>ShotStarter</div>
-  <div class="top-right">
-    <div class="seg-control">
-      <button id="langEn" class="on">EN</button><button id="langZh">中文</button>
-    </div>
-    <button class="link-btn" id="openSettings" data-i18n="settings">模型设置</button>
-  </div>
-</div></nav>
+<header><div class="wrap">
+<a class="logo" href="#top"><i>S</i>ShotStart · 项目讲解</a>
+<nav><a href="#store">真实店铺</a><a href="#ai">AI 助手</a><a href="#sublinks">子链接</a><a href="#video">宣传视频</a></nav>
+</div></header>
 
-<div class="wrap">
-  <section class="hero">
-    <div class="eyebrow" data-i18n="eyebrow">AI 内容助手</div>
-    <h1 id="heroTitle">你的第一个镜头，<br><span class="grad">从脚本开始。</span></h1>
-    <p data-i18n="heroSub">选择模板、平台、商品和卖点，一键生成脚本、分镜、商品文案、挑战计划、评论回复包等。所有输出都是草稿，发布前由你本人审核。</p>
-  </section>
-
-  <section class="panel">
-    <div class="step"><span class="num">1</span><h2 data-i18n="step1">选择模板</h2></div>
-    <div class="chips" id="tplChips"></div>
-    <div class="tpl-desc" id="tplDesc"></div>
-
-    <div class="step" style="margin-top:28px"><span class="num">2</span><h2 data-i18n="step2">选择内容</h2></div>
-    <div class="grid3">
-      <div><label data-i18n="platform">投放平台</label>
-        <div class="chips" id="platformChips"></div></div>
-      <div><label for="product" data-i18n="product">商品</label><select id="product"></select></div>
-      <div><label for="point" data-i18n="point">卖点</label><select id="point"></select></div>
-    </div>
-
-    <div class="step" style="margin-top:28px"><span class="num">3</span><h2 data-i18n="step3">生成</h2></div>
-    <div class="actions">
-      <button class="btn primary" id="gen"><span class="spinner"></span><span data-i18n="generate">生成内容</span></button>
-      <button class="btn text" id="genLib" data-i18n="library">模板库</button>
-      <span class="status" id="status"></span>
-    </div>
-    <div class="err-text" id="err"></div>
-  </section>
-
-  <div class="skel" id="skel">
-    <div class="bar" style="width:40%"></div><div class="bar"></div><div class="bar" style="width:85%"></div>
-    <div class="bar"></div><div class="bar" style="width:65%"></div>
-  </div>
-
-  <section class="out" id="out">
-    <div class="rowhead">
-      <h2 id="outTitle">生成的草稿</h2>
-      <div>
-        <span class="badge live" id="modeBadge" style="display:none"></span>
-        <button class="btn small text" id="variant" data-i18n="variant">换一版</button>
-        <button class="btn small text" id="copyAll" data-i18n="copyAll">一键复制</button>
-      </div>
-    </div>
-    <div id="outputBox"></div>
-    <div class="note" data-i18n="reviewNote">AI 输出为草稿，发布前请自行审核。提示词已禁止编造规格、排名、认证和效果承诺。生成内容保持英文，面向美国市场。</div>
-  </section>
-
-  <section class="hist" id="histWrap" style="display:none">
-    <div class="rowhead">
-      <h3 style="font-size:19px" data-i18n="histTitle">生成历史（仅本浏览器）</h3>
-      <button class="btn small text" id="clearHist" data-i18n="clearHist">清空</button>
-    </div>
-    <div id="histList"></div>
-  </section>
-
-  <footer data-i18n="footer">密钥仅保存在本浏览器，只发送给你配置的接口地址。模板库输出始终明确标注。</footer>
+<div class="wrap" id="top">
+<div class="hero">
+<div>
+<div class="eyebrow">AI 独立站挑战赛 · 参赛项目</div>
+<h1>你的第一个镜头，<br>从 ShotStart 开始。</h1>
+<p>ShotStart 是面向美国新手短视频创作者和小商家的跨境独立站：卖「拿来就能用」的手机拍摄装备，并用自研的 ShotStarter AI 内容助手，把「买装备」延伸成「拍出第一条视频」。</p>
+<div class="badges"><span>店匠独立站</span><span>ShotStarter AI</span><span>7 天创作者挑战</span><span>30 秒宣传片</span></div>
+</div>
+<img src="assets/hero.png" alt="ShotStart 品牌主视觉">
 </div>
 
-<dialog id="settings">
-  <h2 data-i18n="settingsTitle">模型设置</h2>
-  <div class="hint" data-i18n="settingsHint">OpenAI 兼容的对话补全接口。示例：豆包方舟 https://ark.cn-beijing.volces.com/api/v3/chat/completions · 其他兼容服务同理</div>
-  <div class="field"><label for="endpoint" data-i18n="endpoint">接口地址</label><input type="text" id="endpoint" placeholder="https://.../chat/completions"></div>
-  <div class="field"><label for="apikey" data-i18n="apikey">接口密钥（由你本人填写）</label><input type="password" id="apikey" placeholder="粘贴你的密钥——只保存在本浏览器"></div>
-  <div class="field"><label for="model" data-i18n="model">模型名称</label><input type="text" id="model" placeholder="例如 doubao-seed-1-6-250615"></div>
-  <div class="hint" data-i18n="corsHint">若浏览器拦截请求（跨域/网络），请改用模板库，或更换允许浏览器调用的接口。本文件不内置任何密钥。</div>
-  <div class="actions">
-    <button class="btn primary" id="saveSettings" data-i18n="save">保存</button>
-    <button class="btn text" id="closeSettings" data-i18n="close">关闭</button>
-  </div>
-</dialog>
+<section id="overview">
+<span class="num">01 · 项目总览</span>
+<h2>一个店铺，三层体验</h2>
+<p class="lead">项目不只搭建了一个商品店铺，而是把「选品购买 → AI 内容生产 → 持续发布」串成完整链路，这也是本次比赛中 AI 深度应用与独立站创新玩法的核心。</p>
+<div class="cards">
+<div class="card"><h3>店匠独立站</h3><p>12 个单件商品 + 2 个套装，5 个前台集合，全英文界面面向美国市场；首页、商品、挑战、关于、联系与评委导览完整可用。</p></div>
+<div class="card"><h3>ShotStarter AI 助手</h3><p>选择模板、平台、商品和卖点，一键生成 15 秒脚本、四镜分镜、发布文案等 6 类内容；支持真实大模型与内置模板库双模式。</p></div>
+<div class="card"><h3>7 天创作者挑战</h3><p>每天一个小任务，从选题、首拍、发布到复盘，把 AI 生成的内容真正变成持续更新的账号。</p></div>
+</div>
+</section>
 
-<div class="toast" id="toast"></div>
+<section id="store">
+<span class="num">02 · 真实店铺</span>
+<h2>真实在线的 ShotStart 店铺</h2>
+<p class="lead">以下为店铺实际页面截图，商品名、价格与描述均为真实在售内容。</p>
+<a class="btn" href="https://ygtokenstemple.myshoplaza.com/" target="_blank" rel="noopener">访问 ShotStart 店铺</a>
+<div class="shots" style="margin-top:32px">
+<figure><img src="assets/store-home.png" alt="店铺首页"><figcaption><b>店铺首页</b> · 品牌主视觉、服务承诺与商品推荐区</figcaption></figure>
+<figure><img src="assets/store-products.png" alt="商品网格"><figcaption><b>商品网格</b> · 三脚架、桌面支架、延长杆、迷你云台等真实商品卡片</figcaption></figure>
+<figure><img src="assets/store-product.png" alt="商品详情"><figcaption><b>商品详情页</b> · 可调节手机三脚架：大图、卖点、规格与购买按钮</figcaption></figure>
+<figure><img src="assets/store-shop.png" alt="All Gear 集合页"><figcaption><b>All Gear 集合页</b> · 全部装备的集合头图与筛选排序</figcaption></figure>
+</div>
+</section>
 
-<script>
-/* ============ 文案（中英双套，界面绝不混用） ============ */
-const I18N={
-zh:{settings:'模型设置',eyebrow:'AI 内容助手',
- heroTitle:'你的第一个镜头，<br><span class="grad">从脚本开始。</span>',
- heroSub:'选择模板、平台、商品和卖点，一键生成脚本、分镜、商品文案、挑战计划、评论回复包等。所有输出都是草稿，发布前由你本人审核。',
- step1:'选择模板',step2:'选择内容',step3:'生成',platform:'投放平台',product:'商品',point:'卖点',
- generate:'生成内容',library:'模板库',variant:'换一版',copyAll:'一键复制',copied:'已复制 ✓',
- reviewNote:'AI 输出为草稿，发布前请自行审核。提示词已禁止编造规格、排名、认证和效果承诺。生成内容保持英文，面向美国市场。',
- histTitle:'生成历史（仅本浏览器）',clearHist:'清空',settingsTitle:'模型设置',
- settingsHint:'OpenAI 兼容的对话补全接口。示例：豆包方舟 https://ark.cn-beijing.volces.com/api/v3/chat/completions · 其他兼容服务同理',
- endpoint:'接口地址',apikey:'接口密钥（由你本人填写）',model:'模型名称',
- corsHint:'若浏览器拦截请求（跨域/网络），请改用模板库，或更换允许浏览器调用的接口。本文件不内置任何密钥。',
- save:'保存',close:'关闭',
- footer:'密钥仅保存在本浏览器，只发送给你配置的接口地址。模板库输出始终明确标注。',
- ready:'就绪。真实生成请先在「模型设置」中填入你的接口密钥。',
- liveReady:'真实生成已就绪，当前模型：',needCfg:'已保存。真实生成还需填写接口密钥和模型名。',
- fillFirst:'请先填写接口地址、接口密钥和模型名。',
- calling:'正在调用模型…一般需要 10–40 秒。',
- liveOk:'已由真实模型生成草稿，发布前请审核。',
- liveFail:'真实调用失败——模板库仍可使用。',
- failPrefix:'真实生成失败：',
- corsAdvice:'如果是浏览器跨域或网络拦截，请使用模板库，或更换允许浏览器调用的接口。',
- libOut:'当前为模板库输出——并非真实模型生成。',
- liveBadge:'真实模型输出',libBadge:'模板库输出',
- sbHead:['镜号','时长','景别','画面动作','字幕','口播'],visual:'画面：',ctaPrefix:'行动号召：',
- copyBlocked:'浏览器禁止了剪贴板操作，请手动选择文字复制。',
- emptyRes:'模型返回为空。',noJson:'模型未返回 JSON。',badShape:'JSON 结构不符。',
- histCleared:'历史已清空。',live:'真实',lib:'模板库',
- tplScript:'15秒脚本+分镜',tplDesc:'商品描述文案',tplChallenge:'7天挑战计划',
- tplReplies:'评论回复包',tplHooks:'钩子文案库',tplEmails:'邮件序列',
- dScript:'面向所选平台的 15 秒脚本、四镜分镜与发布文案。每次生成都会换不同变体组合。',
- dDesc:'商品页的 SEO 标题、卖点、描述、FAQ 与元描述。',
- dChallenge:'7 天挑战的每日拍摄任务、目标与小贴士。',
- dReplies:'十条常见观众评论的回复模板。',
- dHooks:'十条适配该商品与平台的抓眼开头钩子。',
- dEmails:'给挑战报名者的七天欢迎邮件序列。',
- sTitle:'标题',sSubtitle:'副标题',sBullets:'卖点清单',sDescription:'商品描述',sFaq:'常见问题',
- sSeo:'SEO 标题',sMeta:'元描述',sDays:'每日任务',sClosing:'收束语',
- sReplies:'回复模板',sHooks:'钩子文案',sEmails:'邮件序列',sCaption:'发布文案与标签',
- sStoryboard:'四镜分镜表',sScript:'脚本',
- platforms:['TikTok','Instagram 短视频','YouTube 短视频']},
-en:{settings:'Model Settings',eyebrow:'AI Content Assistant',
- heroTitle:'Your first shot,<br><span class="grad">scripted for you.</span>',
- heroSub:'Pick a template, a platform, a product and a selling point. Get scripts, storyboards, product copy, challenge plans, reply packs and more — all drafts you review before posting.',
- step1:'Pick a Template',step2:'Choose Your Content',step3:'Generate',platform:'Platform',product:'Product',point:'Selling Point',
- generate:'Generate',library:'Template Library',variant:'Shuffle',copyAll:'Copy All',copied:'Copied ✓',
- reviewNote:'AI output is a draft. Review before posting. No unverified specs, rankings, certifications or guaranteed results are included by instruction. Generated content stays in English for the US market.',
- histTitle:'History (this browser only)',clearHist:'Clear',settingsTitle:'Model Settings',
- settingsHint:'OpenAI-compatible chat completions endpoint. Example: Doubao Ark https://ark.cn-beijing.volces.com/api/v3/chat/completions · other compatible services work the same way',
- endpoint:'Endpoint URL',apikey:'API key (you fill this in)',model:'Model name',
- corsHint:'If the browser blocks the request (CORS / network), use the Template Library or an endpoint that allows browser calls. Keys are never bundled with this file.',
- save:'Save',close:'Close',
- footer:'Your API key stays in this browser and is sent only to the endpoint you configure. Template Library output is always labelled.',
- ready:'Ready. Live mode needs your own API key in Model Settings.',
- liveReady:'Live mode ready — model: ',needCfg:'Saved. Live mode still needs API key and model name.',
- fillFirst:'Fill in endpoint, API key and model name first.',
- calling:'Calling the model… usually 10–40 seconds.',
- liveOk:'Draft generated by the live model. Review before posting.',
- liveFail:'Live call failed — the Template Library still works.',
- failPrefix:'Live generation failed: ',
- corsAdvice:'If this is a browser CORS/network block, use the Template Library or a browser-friendly endpoint.',
- libOut:'Template Library output — not generated by a live model.',
- liveBadge:'LIVE MODEL OUTPUT',libBadge:'TEMPLATE LIBRARY',
- sbHead:['Shot','Time','Framing','Action','Caption','Voiceover'],visual:'Visual: ',ctaPrefix:'CTA: ',
- copyBlocked:'Clipboard blocked by the browser. Select the text and copy manually.',
- emptyRes:'Empty model response.',noJson:'Model did not return JSON.',badShape:'JSON shape mismatch.',
- histCleared:'History cleared.',live:'Live',lib:'Library',
- tplScript:'15s Script + Storyboard',tplDesc:'Product Description',tplChallenge:'7-Day Challenge Plan',
- tplReplies:'Comment Reply Pack',tplHooks:'Hook Bank',tplEmails:'Email Nurture Sequence',
- dScript:'15-second script, four-shot storyboard and caption for the chosen platform. Every generation mixes different variants.',
- dDesc:'SEO product title, bullets, description, FAQ and meta for the product page.',
- dChallenge:'Seven daily shooting tasks with goals and tips for the 7-Day Challenge.',
- dReplies:'Ten reply templates for common viewer comments on your posts.',
- dHooks:'Ten scroll-stopping opening hooks for this product on this platform.',
- dEmails:'Seven welcome emails for Challenge sign-ups: Day 1 to Day 7.',
- sTitle:'Title',sSubtitle:'Subtitle',sBullets:'Bullets',sDescription:'Description',sFaq:'FAQ',
- sSeo:'SEO title',sMeta:'Meta description',sDays:'Daily tasks',sClosing:'Closing line',
- sReplies:'Reply templates',sHooks:'Hooks',sEmails:'Email sequence',sCaption:'Caption & hashtags',
- sStoryboard:'Four-shot storyboard',sScript:'Script',
- platforms:['TikTok','Instagram Reels','YouTube Shorts']}};
-let lang=localStorage.getItem('ss-live-lang')||'zh';
-const $=id=>document.getElementById(id);
-const t=k=>(I18N[lang][k]!==undefined?I18N[lang][k]:I18N.zh[k])||k;
-function toast(msg){const el=$('toast');el.textContent=msg;el.classList.add('show');
-  setTimeout(()=>el.classList.remove('show'),1800);}
+<section id="ai">
+<span class="num">03 · ShotStarter AI 内容助手</span>
+<h2>店铺里的 AI 内容生产线</h2>
+<p class="lead">新手最缺的不是装备，而是「第一条视频拍什么」。ShotStarter 把这个问题变成三次点击：选模板、选商品、点生成。</p>
+<ul class="feat">
+<li>6 类模板：脚本分镜 / 商品文案 / 挑战计划 / 评论回复 / 钩子库 / 邮件序列</li>
+<li>14 个商品与套装、3 个平台：TikTok / Reels / Shorts</li>
+<li>真实大模型接入（密钥用户自填）+ 内置模板库双模式</li>
+<li>换一版、一键复制、历史记录、品牌配图</li>
+<li>中英文界面一键切换，生成内容面向美国市场</li>
+<li>单文件 HTML，可离线打开，也可部署为在线页面</li>
+</ul>
+<div class="shots" style="margin-top:32px">
+<figure><img src="assets/01-操作面板.png" alt="操作面板"><figcaption><b>操作面板</b> · 模板、平台、商品、卖点三步选择</figcaption></figure>
+<figure><img src="assets/02-脚本与分镜.png" alt="脚本与分镜"><figcaption><b>15 秒脚本 + 四镜分镜</b> · 含逐镜画面、字幕、口播与品牌配图</figcaption></figure>
+<figure><img src="assets/03-钩子文案库.png" alt="钩子文案库"><figcaption><b>钩子文案库</b> · 多种开头钩子，适配短视频前 3 秒</figcaption></figure>
+<figure><img src="assets/04-七天挑战计划.png" alt="七天挑战计划"><figcaption><b>7 天挑战计划</b> · 每日拍摄任务、目标与小贴士</figcaption></figure>
+<figure><img src="assets/05-英文界面.png" alt="英文界面"><figcaption><b>英文界面</b> · 面向美国用户的全英文生成结果</figcaption></figure>
+</div>
+</section>
 
-/* ============ 商品数据（界面中文/内容英文分开；生成内容保持英文面向美国市场） ============ */
-const PRODUCTS = [
-  {id:'tripod', name:'Adjustable Phone Tripod', nameZh:'可调节手机三脚架',
-   points:['Adjustable height and angle for varied setups','Hands-free talking-head and product demos','Stable framing for short videos'],
-   pointsZh:['高度和角度可调，适配多种机位','解放双手，适合口播和产品演示','稳定构图，拍摄短视频不晃动']},
-  {id:'stand', name:'Desktop Phone Stand', nameZh:'桌面手机支架',
-   points:['Holds phone upright at a usable desk angle','Compact footprint for small desks','Hands-free desk demos and live clips'],
-   pointsZh:['竖立手机，角度适合桌面拍摄','体积小巧，不占桌面空间','解放双手，适合桌面演示和直播片段']},
-  {id:'cleaning-kit', name:'Lens Cleaning Kit', nameZh:'镜头清洁套装',
-   points:['Compact kit for phone and camera lenses','Clears dust, smudges and fingerprints','Four-piece set listed in the box'],
-   pointsZh:['小巧套装，手机和相机镜头通用','清除灰尘、污渍和指纹','盒内共四件工具']},
-  {id:'extension-pole', name:'Extension Pole', nameZh:'延长杆',
-   points:['Extra reach for wider framing','Pairs with the tripod for higher angles'],
-   pointsZh:['延长拍摄距离，画面更开阔','搭配三脚架使用，获得更高机位']},
-  {id:'mini-ball-head', name:'Mini Ball Head', nameZh:'迷你云台',
-   points:['Small head, flexible angles','Fine-tune framing without moving the legs'],
-   pointsZh:['体积小巧，角度灵活','不动脚架即可微调构图']},
-  {id:'magnetic-mount', name:'Magnetic Phone Mount', nameZh:'磁吸手机支架',
-   points:['Snap on and start shooting','Quick attach and remove on the desk'],
-   pointsZh:['磁吸即贴，随拍随取','桌面场景快速装卸']},
-  {id:'reflector', name:'Folding Reflector', nameZh:'折叠反光板',
-   points:['Softer light without extra gear','Folds down for easy carrying'],
-   pointsZh:['无需额外设备即可柔化光线','可折叠，方便携带']},
-  {id:'backdrop', name:'Backdrop Cloth', nameZh:'背景布',
-   points:['A clean background in seconds','Tidy look for product demos'],
-   pointsZh:['几秒内搭出干净背景','产品演示画面更整洁']},
-  {id:'carry-case', name:'Creator Carry Case', nameZh:'创作者收纳包',
-   points:['Every piece in its place','Padded dividers for daily carry'],
-   pointsZh:['每件配件各归其位','软垫分隔，日常携带不磕碰']},
-  {id:'refill', name:'Lens Cleaning Refill', nameZh:'镜头清洁补充装',
-   points:['A quick refresh for the cleaning kit','Easy restock for regular creators'],
-   pointsZh:['快速补充清洁套装配件','高频创作者轻松补货']},
-  {id:'microfiber', name:'Microfiber Cloth 3-Pack', nameZh:'纤维布三件套',
-   points:['One cloth for every bag','Gentle everyday lens care'],
-   pointsZh:['一个包放一块，随时备用','日常温和护理镜头']},
-  {id:'shot-list', name:'Shot List Cards', nameZh:'分镜卡',
-   points:['Plan the shot before you shoot','Simple prompts for first-time creators'],
-   pointsZh:['拍摄前先规划镜头','给新手创作者的简明提示']},
-  {id:'starter-kit', name:'Creator Starter Kit (Tripod + Stand + Cleaning Kit)', nameZh:'新手套装（三脚架+桌面支架+清洁套装）',
-   points:['Three essentials in one kit','Bundle saves versus buying separately'],
-   pointsZh:['一套集齐三件必需装备','比单买更划算']},
-  {id:'pro-kit', name:'Pro Creator Kit (Tripod + Pole + Carry Case + Ball Head)', nameZh:'进阶套装（三脚架+延长杆+收纳包+云台）',
-   points:['The full setup in one bundle','Made for creators going beyond the desk'],
-   pointsZh:['一件套装配齐完整装备','为走出桌面的创作者设计']}
-];
+<section id="sublinks">
+<span class="num">04 · 两个子链接</span>
+<h2>可以直接打开的两个 HTML</h2>
+<p class="lead">两个子页面均已部署在本站点，点击即可打开。</p>
+<div class="links">
+<div class="linkcard light"><h3>ShotStart 创作技巧</h3><p>Creator Academy：拍摄、布光、脚本、剪辑与发布的一站式新手创作指南。</p><a href="creator-tips/" target="_blank" rel="noopener">打开创作技巧</a></div>
+<div class="linkcard"><h3>ShotStarter 完整版</h3><p>ShotStarter AI · 完整功能版本：中英切换、真实模型接入、模板库、历史记录与品牌配图。</p><a href="ai.html" target="_blank" rel="noopener">打开完整版</a></div>
+</div>
+</section>
 
-/* ============ 图片素材库（品牌视觉，供模板结果配图） ============ */
-const IMG={
- tripod:['https://aka.doubaocdn.com/s/BnsZYj79gx','https://aka.doubaocdn.com/s/bFHJ7UEUwP','https://aka.doubaocdn.com/s/JYvDzuM1C7','https://aka.doubaocdn.com/s/MtUZ5VHo0J'],
- stand:['https://aka.doubaocdn.com/s/iGsxIqVkah','https://aka.doubaocdn.com/s/VSvjtfV7Hs','https://aka.doubaocdn.com/s/oC6jrD0RvW','https://aka.doubaocdn.com/s/1rAvhSLo1E'],
- 'cleaning-kit':['https://aka.doubaocdn.com/s/XWzA3F9S4v','https://aka.doubaocdn.com/s/QWfV7U9onP','https://aka.doubaocdn.com/s/QeAcoMHlJk','https://aka.doubaocdn.com/s/WapjAxhuxU'],
- 'extension-pole':['https://aka.doubaocdn.com/s/PRTrBCUKUU','https://aka.doubaocdn.com/s/bFHJ7UEUwP','https://aka.doubaocdn.com/s/MtUZ5VHo0J'],
- 'mini-ball-head':['https://aka.doubaocdn.com/s/tmwUwHOF3n','https://aka.doubaocdn.com/s/9GuBGhXVas','https://aka.doubaocdn.com/s/bFHJ7UEUwP'],
- 'magnetic-mount':['https://aka.doubaocdn.com/s/DIS9VGf8Ce','https://aka.doubaocdn.com/s/xV4ZlGT7Vl','https://aka.doubaocdn.com/s/VSvjtfV7Hs'],
- reflector:['https://aka.doubaocdn.com/s/Or3UVvsSX5','https://aka.doubaocdn.com/s/VSvjtfV7Hs','https://aka.doubaocdn.com/s/1rAvhSLo1E'],
- backdrop:['https://aka.doubaocdn.com/s/Cr52uDPaxs','https://aka.doubaocdn.com/s/VSvjtfV7Hs','https://aka.doubaocdn.com/s/ZQ3zCElKyl'],
- 'carry-case':['https://aka.doubaocdn.com/s/J7ffoAYwmq','https://aka.doubaocdn.com/s/bFHJ7UEUwP','https://aka.doubaocdn.com/s/1rAvhSLo1E'],
- refill:['https://aka.doubaocdn.com/s/HvvXqOgd1k','https://aka.doubaocdn.com/s/QWfV7U9onP','https://aka.doubaocdn.com/s/QeAcoMHlJk'],
- microfiber:['https://aka.doubaocdn.com/s/Z9J926S3cJ','https://aka.doubaocdn.com/s/C3PALnuD7V','https://aka.doubaocdn.com/s/QWfV7U9onP'],
- 'shot-list':['https://aka.doubaocdn.com/s/1DOd7vKbV3','https://aka.doubaocdn.com/s/tR1SXTNJSb','https://aka.doubaocdn.com/s/bFHJ7UEUwP'],
- 'starter-kit':['https://aka.doubaocdn.com/s/uMmBfAm2e4','https://aka.doubaocdn.com/s/MtUZ5VHo0J','https://aka.doubaocdn.com/s/bFHJ7UEUwP'],
- 'pro-kit':['https://aka.doubaocdn.com/s/WTCMhdfFxy','https://aka.doubaocdn.com/s/WapjAxhuxU','https://aka.doubaocdn.com/s/bFHJ7UEUwP']
-};
+<section id="video">
+<span class="num">05 · 宣传视频</span>
+<h2>30 秒店铺宣传片</h2>
+<p class="lead">AI 演示开场，随后进入真实店铺：首页滚动、商品网格、三脚架详情页；英文旁白，16:9 横版。</p>
+<video src="assets/promo.mp4" controls preload="metadata"></video>
+</section>
+</div>
 
-/* ============ 设置（仅本地存储） ============ */
-const LS_CFG='ss-live-cfg', LS_HIST='ss-live-hist';
-const cfg = Object.assign({endpoint:'https://ark.cn-beijing.volces.com/api/v3/chat/completions',key:'',model:''},
-  JSON.parse(localStorage.getItem(LS_CFG)||'{}'));
-$('endpoint').value=cfg.endpoint; $('apikey').value=cfg.key; $('model').value=cfg.model;
-$('openSettings').onclick=()=>$('settings').showModal();
-$('closeSettings').onclick=()=>$('settings').close();
-$('saveSettings').onclick=()=>{
-  cfg.endpoint=$('endpoint').value.trim(); cfg.key=$('apikey').value.trim(); cfg.model=$('model').value.trim();
-  localStorage.setItem(LS_CFG,JSON.stringify(cfg)); $('settings').close();
-  setStatus(cfg.key&&cfg.model?t('liveReady')+cfg.model:t('needCfg'));
-};
-
-/* ============ 模板定义 ============ */
-const TEMPLATES=[
-  {id:'script',labelKey:'tplScript',descKey:'dScript'},
-  {id:'product-desc',labelKey:'tplDesc',descKey:'dDesc'},
-  {id:'challenge',labelKey:'tplChallenge',descKey:'dChallenge'},
-  {id:'replies',labelKey:'tplReplies',descKey:'dReplies'},
-  {id:'hooks',labelKey:'tplHooks',descKey:'dHooks'},
-  {id:'emails',labelKey:'tplEmails',descKey:'dEmails'}
-];
-let tpl='script';
-function buildTplChips(){
-  const box=$('tplChips');box.innerHTML='';
-  TEMPLATES.forEach(x=>{const b=document.createElement('button');
-    b.className='chip'+(x.id===tpl?' on':'');b.textContent=t(x.labelKey);
-    b.onclick=()=>{tpl=x.id;buildTplChips();$('tplDesc').textContent=t(x.descKey);};
-    box.appendChild(b);});
-  $('tplDesc').textContent=t(TEMPLATES.find(x=>x.id===tpl).descKey);
-}
-
-/* ============ 选择器（界面语言与数据语言分离） ============ */
-const PLATFORM_KEYS=['TikTok','Instagram Reels','YouTube Shorts'];
-let platform='TikTok';
-const pSel=$('product'), ptSel=$('point');
-function buildPlatformChips(){
-  const box=$('platformChips');box.innerHTML='';
-  PLATFORM_KEYS.forEach((key,i)=>{const b=document.createElement('button');
-    b.className='chip'+(key===platform?' on':'');
-    b.textContent=t('platforms')[i];
-    b.onclick=()=>{platform=key;buildPlatformChips();};
-    box.appendChild(b);});
-}
-function buildProductSel(){
-  const cur=pSel.value||'tripod';pSel.innerHTML='';
-  PRODUCTS.forEach(p=>{const o=document.createElement('option');o.value=p.id;
-    o.textContent=lang==='zh'?p.nameZh:p.name;pSel.appendChild(o);});
-  pSel.value=cur;refreshPoints();
-}
-function refreshPoints(){
-  const p=PRODUCTS.find(x=>x.id===pSel.value);
-  const arr=lang==='zh'?p.pointsZh:p.points;
-  ptSel.innerHTML='';
-  arr.forEach(txt=>{const o=document.createElement('option');o.textContent=txt;ptSel.appendChild(o);});
-}
-pSel.onchange=refreshPoints;
-function curProduct(){return PRODUCTS.find(x=>x.id===pSel.value);}
-function curPointEn(){const p=curProduct();const arr=lang==='zh'?p.pointsZh:p.points;
-  const i=Math.max(0,ptSel.selectedIndex);return p.points[Math.min(i,p.points.length-1)];}
-function dispName(p){return lang==='zh'?p.nameZh:p.name;}
-function setStatus(txt){$('status').textContent=txt;}
-function showErr(txt){const e=$('err');e.textContent=txt;e.style.display=txt?'block':'none';}
-
-/* ============ 模板库变体库 ============ */
-const lastPick={};
-function pick(key,arr){
-  let i=Math.floor(Math.random()*arr.length);
-  if(arr.length>1&&i===lastPick[key])i=(i+1)%arr.length;
-  lastPick[key]=i;return arr[i];
-}
-function shuffled(arr,n){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
-  return a.slice(0,n);}
-const OFF_HOOK={
- 'TikTok':['POV: you finally film your first video','Nobody tells beginners this one framing fix','Your first 15-second video starts like this','Stop overthinking your setup — start here','One desk, one phone, one small change'],
- 'Instagram Reels':['A tiny setup change for calmer content days','Save this before you film your next reel','The beginner setup I would buy again','Small gear, big difference on camera','Your desk is already a studio — here is the missing piece'],
- 'YouTube Shorts':['How to start filming with just your phone','The easiest first video you can make today','One product that fixes shaky beginner footage','Start your channel with this one setup','Beginner mistake: filming before you frame']};
-const OFF_CTA={
- 'TikTok':['Tap the link and start your first shot','Grab the gear and film today','Your first video is one tap away'],
- 'Instagram Reels':['Save this for your next filming day','Link in bio — start your first shot','Follow along and film your first reel'],
- 'YouTube Shorts':['Check the link for the full starter setup','Subscribe and film your first short','Full setup in the description']};
-const OFF_PROBLEM=[
- 'Shaky framing and awkward angles make starting harder than it needs to be.',
- 'Most beginners quit before the first upload — because the setup feels harder than it is.',
- 'You already have the ideas. The wobble is the only thing in the way.'];
-const OFF_PROBLEM_VISUAL=[
- 'Handheld phone wobbling, then a frustrated pause.',
- 'A cluttered desk with no clear spot to film.',
- 'The same idea filmed twice: one shaky, one steady.'];
-const OFF_DEMO_LINE=[
-  p=>'With the '+p.name+', just {point}.',
-  p=>'Watch the '+p.name+' do the one job it is made for: {point}.',
-  p=>'The trick is simple — '+p.name+' keeps it {point}.'];
-const OFF_DEMO_VISUAL=[
-  'Slow demo shot showing the selling point in use.',
-  'Close-up of the adjustment, then a clean framed shot.',
-  'Two-second before-and-after cut on the same desk.'];
-const OFF_CTA_VISUAL=[
-  'Product hero shot, warm light, coral accent.',
-  'Product next to the caption text, phone screen glowing.',
-  'Wide desk shot with the product centered and space for text.'];
-const OFF_CAPTION_FRAME=[
-  (p,pt)=>'Your first shot starts here. '+pt+' — that is what the '+p.name+' is made for. Draft caption, review before posting.',
-  (p,pt)=>'New creators do not need more gear. They need one thing that works. For this setup, that is the '+p.name+': '+pt.charAt(0).toLowerCase()+pt.slice(1)+'.',
-  (p,pt)=>'We built the '+p.name+' around one job — '+pt.charAt(0).toLowerCase()+pt.slice(1)+'. Start simple. Film today.'];
-const OFF_TAGS=['#ShotStart','#ContentCreator','#BeginnerCreator','#PhoneVideo','#CreatorGear','#SmallBusiness','#FirstVideo','#CreatorTips','#NewCreator','#CreatorSetup','#VideoTips','#DeskSetup','#ContentTips','#ShortsCreator','#ReelsTips','#Filmmaking','#PhoneFilmmaking','#CreatorCommunity','#StartCreating','#YourFirstShot'];
-
-function offlineObj(tplId,platform,product,point){
-  const cap=txt=>txt.charAt(0).toLowerCase()+txt.slice(1);
-  if(tplId==='script'){
-    const hook=pick('hook',OFF_HOOK[platform]), cta=pick('cta',OFF_CTA[platform]);
-    const problem=pick('problem',OFF_PROBLEM), pVis=pick('pvis',OFF_PROBLEM_VISUAL);
-    const demo=pick('demo',OFF_DEMO_LINE)(product).replace('{point}',cap(point));
-    const dVis=pick('dvis',OFF_DEMO_VISUAL), cVis=pick('cvis',OFF_CTA_VISUAL);
-    const caption=pick('caption',OFF_CAPTION_FRAME)(product,point);
-    const tags=shuffled(OFF_TAGS,8+Math.floor(Math.random()*4));
-    return{
-      script:[
-        {time:'0-3s Hook',voiceover:hook+'.',visual:'Quick close-up of the '+product.name+' on a warm desk.'},
-        {time:'3-7s Problem',voiceover:problem,visual:pVis},
-        {time:'7-12s Demo',voiceover:demo+'.',visual:dVis},
-        {time:'12-15s CTA',voiceover:cta+'.',visual:cVis}],
-      storyboard:[
-        {shot:1,duration:'0-3s',framing:'Close-up',action:'Reveal the product',caption:hook,voiceover:hook+'.'},
-        {shot:2,duration:'3-7s',framing:'Medium',action:'Show the wobble problem',caption:'Sound familiar?',voiceover:problem},
-        {shot:3,duration:'7-12s',framing:'Demo shot',action:'Show: '+point,caption:point,voiceover:demo+'.'},
-        {shot:4,duration:'12-15s',framing:'Hero shot',action:'Hold on the product',caption:'Your first shot starts here.',voiceover:cta+'.'}],
-      caption:caption,hashtags:tags,cta:cta};
-  }
-  if(tplId==='product-desc'){
-    const frames=['Simple gear that helps you finish and publish your first video.','One clear job, honest specs, beginner-friendly design.','Less setup, more creating — that is the whole idea.'];
-    return{
-      title:product.name+' for Beginner Creators',
-      subtitle:pick('pds',frames),
-      bullets:[cap(point)+'.','Easy to set up on a desk or on the go.','Pairs with the rest of the ShotStart lineup.','Draft listing — specs confirmed before launch.'],
-      description:'The '+product.name+' is built around one idea: starting is hard, gear should not make it harder. It focuses on one clear job — '+cap(point)+'. Setup is straightforward and the design fits a beginner creator desk. All specifications stay as honest placeholders until verified against the physical product.',
-      faq:[{q:'Will it fit my phone?',a:'Compatibility range to be confirmed before launch.'},
-           {q:'Is it beginner friendly?',a:'Yes — the design keeps setup simple and the instructions stay plain.'},
-           {q:'What is in the box?',a:'The packaging list will be published once the physical product is confirmed.'},
-           {q:'Can I use it with other ShotStart gear?',a:'It is designed to work alongside the ShotStart lineup.'}],
-      seo_title:product.name+' for Beginner Creators | ShotStart',
-      meta_description:cap(point)+'. Simple creator gear from ShotStart. Draft listing, specs confirmed before launch.'};
-  }
-  if(tplId==='challenge')return{
-    days:[
-      {day:1,task:'Pick your topic and write one sentence about it.',goal:'A topic you can film in one take.',tip:'Use the '+product.name+' to frame the shot early.'},
-      {day:2,task:'Film a 15-second first take.',goal:'One take, no editing yet.',tip:'Say your hook out loud before recording.'},
-      {day:3,task:'Publish on your first platform.',goal:'Your first video is live.',tip:'Use the caption template from ShotStarter.'},
-      {day:4,task:'Reply to every comment.',goal:'Start a conversation.',tip:'Keep replies friendly and short.'},
-      {day:5,task:'Refilm the same idea from a new angle.',goal:'Compare two versions.',tip:cap(point)+'.'},
-      {day:6,task:'Adapt the video for a second platform.',goal:'One idea, two platforms.',tip:'Adjust the caption and hashtags, not just the file.'},
-      {day:7,task:'Publish your best version and share the result.',goal:'Finish the challenge with a published video.',tip:'Celebrate progress, not perfection.'}],
-    closing:pick('closing',['You finished seven days of creating. Your first shot is already behind you.','Seven days ago you had an idea. Today you have a published video.','The challenge ends here — the habit does not have to.'])};
-  if(tplId==='replies'){
-    const pool=[
-      {tone:'Friendly',reply:'Glad you asked! '+cap(point)+'. More details are on the product page.'},
-      {tone:'Friendly',reply:'Thanks for watching! This is the '+product.name+' — specs are confirmed before launch.'},
-      {tone:'Helpful',reply:'Great question. Compatibility details will be listed on the product page once verified.'},
-      {tone:'Helpful',reply:'It works best on a stable surface — keep it simple and steady.'},
-      {tone:'Honest',reply:'We keep all specs as placeholders until they are confirmed against the real product. No made-up numbers here.'},
-      {tone:'Skeptic',reply:'Fair point! Start with the basics and see if it helps your workflow. No hype from us.'},
-      {tone:'Encouraging',reply:'Your first video does not need perfect gear — it needs a first shot. This just makes it easier.'},
-      {tone:'CTA',reply:'The starter kit bundles this with two more essentials — details on the store.'},
-      {tone:'CTA',reply:'Join the free 7-Day Challenge to turn this gear into a published video.'},
-      {tone:'Thankful',reply:'Thanks for the support! Tag us in your next video, we would love to see it.'},
-      {tone:'Helpful',reply:'Setup takes under a minute once you pick your spot — start with a flat, stable surface.'},
-      {tone:'Encouraging',reply:'Done is better than perfect. Film the first take today and adjust later.'}];
-    return{replies:shuffled(pool,10)};
-  }
-  if(tplId==='hooks'){
-    const pool=[
-      {style:'Question',text:'What if your first video only took one afternoon?'},
-      {style:'POV',text:'POV: you finally film your first video'},
-      {style:'Myth',text:'You do not need a studio to look steady on camera'},
-      {style:'Shortcut',text:'The one desk setup change that makes filming easier'},
-      {style:'Before-After',text:'Shaky hands vs. one simple fix'},
-      {style:'Mistake',text:'Most beginners make this one framing mistake'},
-      {style:'Secret',text:'Why creators film in the same corner of their desk'},
-      {style:'Question',text:'What is the cheapest way to start filming today?'},
-      {style:'Challenge',text:'Film 15 seconds today — here is how to start'},
-      {style:'Relatable',text:'When you want to post but the setup takes forever'},
-      {style:'Shortcut',text:'Three pieces of gear is all your first video needs'},
-      {style:'POV',text:'POV: your desk just became a studio'},
-      {style:'Myth',text:'Fancy gear does not make better videos — this does'},
-      {style:'Before-After',text:'Cluttered desk to clean shot in 30 seconds'},
-      {style:'Question',text:'Why does your first video keep getting postponed?'}];
-    return{hooks:shuffled(pool,10)};
-  }
-  if(tplId==='emails')return{emails:[
-    {day:1,subject:'Day 1: pick your topic',body:'Welcome to the 7-Day Challenge! Today, pick one topic you can film in a single take. One sentence is enough. Not for you? Unsubscribe anytime with one click.'},
-    {day:2,subject:'Day 2: film your first take',body:'Today is the day. Set up your '+product.name+', press record, and stop at 15 seconds. Do not edit yet.'},
-    {day:3,subject:'Day 3: publish it',body:'Publish your first take. Done is better than perfect. Use the caption template from ShotStarter and post it.'},
-    {day:4,subject:'Day 4: reply to every comment',body:'Open your post and reply to every comment. Keep it short and friendly — this is where the community starts.'},
-    {day:5,subject:'Day 5: shoot it again',body:'Refilm the same idea from a new angle. '+cap(point)+'. Compare both versions honestly.'},
-    {day:6,subject:'Day 6: one idea, two platforms',body:'Adapt your video for a second platform. Change the caption and hashtags, not just the file.'},
-    {day:7,subject:'Day 7: share your best version',body:'Publish your best cut and share the result. You made it through seven days of creating — that is the win.'}]};
-}
-
-/* ============ 各模板的提示词 ============ */
-function buildPrompt(tplId,platform,product,point,antiRepeat){
-  const base=`You are ShotStarter, the AI content assistant of ShotStart, a US brand for beginner short-video creators and small shop owners.
-Platform tone: TikTok = fast, casual hook-driven; Instagram Reels = polished lifestyle feel; YouTube Shorts = clear, search-friendly explainer.
-Product: ${product.name}. Selling point to feature: "${point}". Target platform: ${platform}.
-Write in natural US English for beginner creators. Plain short sentences, no jargon. Avoid clichés like "in today's fast-paced world". Vary your openings and sentence rhythm so repeated generations do not feel identical.
-Compliance: do NOT invent dimensions, materials, weights, compatibility ranges, stock, certifications, rankings, reviews or guaranteed growth/sales. No hype promises.
-Return ONLY valid JSON (no markdown fences, no commentary).`;
-  const shapes={
- script:`JSON shape:
-{"script":[{"time":"0-3s Hook","voiceover":"...","visual":"..."},{"time":"3-7s Problem","voiceover":"...","visual":"..."},{"time":"7-12s Demo","voiceover":"...","visual":"..."},{"time":"12-15s CTA","voiceover":"...","visual":"..."}],
-"storyboard":[{"shot":1,"duration":"0-3s","framing":"e.g. close-up","action":"...","caption":"...","voiceover":"..."},{"shot":2,"duration":"3-7s","framing":"...","action":"...","caption":"...","voiceover":"..."},{"shot":3,"duration":"7-12s","framing":"...","action":"...","caption":"...","voiceover":"..."},{"shot":4,"duration":"12-15s","framing":"...","action":"...","caption":"...","voiceover":"..."}],
-"caption":"2-3 sentence platform-native caption","hashtags":["#...","#..."],"cta":"one short call to action"}
-Provide 8-12 hashtags. Script segments and storyboard shots must align.`,
- 'product-desc':`JSON shape:
-{"title":"product title","subtitle":"one-line subtitle","bullets":["4-6 benefit bullets in plain US English"],
-"description":"2-3 short paragraphs","faq":[{"q":"...","a":"..."} x4],
-"seo_title":"under 60 characters","meta_description":"under 155 characters"}
-No invented specs. If a spec is unverified, write it as an honest placeholder sentence instead of a fake number.`,
- 'challenge':`JSON shape:
-{"days":[{"day":1,"task":"...","goal":"...","tip":"..."} x7 exactly, day 1 to 7],"closing":"one encouraging closing line"}
-Tasks are short, doable in a day for a beginner using the ${product.name}. Day 7 should include publishing and a signup/CTA step. Make tasks concrete and varied.`,
- 'replies':`JSON shape:
-{"replies":[{"tone":"e.g. Friendly","reply":"..."} x10 exactly]}
-Ten reply templates for common viewer comments (price question, shipping question, setup question, skeptic comment, positive comment, etc.) about this product. Friendly, honest, no guarantees, no invented specs. Vary tones and lengths.`,
- 'hooks':`JSON shape:
-{"hooks":[{"style":"e.g. Question","text":"..."} x10 exactly]}
-Ten scroll-stopping opening hooks (first 3 seconds) for this product on ${platform}. Varied styles: question, POV, before-after, myth, shortcut, challenge, relatable, secret, mistake, observation. No hype or fake claims. Each hook must be genuinely different in structure.`,
- 'emails':`JSON shape:
-{"emails":[{"day":1,"subject":"...","body":"2-3 short paragraphs"} x7 exactly, day 1 to day 7]}
-A welcome email sequence for someone who joined the 7-Day Challenge. Each email gives that day's task and encourages using the ${product.name}. Day 7 invites them to share their first video. Friendly, short, varied openings, with an easy unsubscribe line in the Day 1 email.`
-  };
-  const anti=antiRepeat?`\nVariation requirement: avoid reusing these exact lines or near-copies from the previous version:\n${antiRepeat}\nWrite a noticeably different take.`:'';
-  return base+'\n'+shapes[tplId]+anti;
-}
-
-/* ============ 真实生成 ============ */
-let lastReq=null;
-async function runLive(antiRepeat){
-  showErr('');
-  if(!cfg.key||!cfg.model||!cfg.endpoint){$('settings').showModal();setStatus(t('fillFirst'));return;}
-  const product=curProduct(), point=curPointEn();
-  lastReq={mode:'live',tpl,platform,product,point};
-  $('gen').disabled=true;$('gen').classList.add('loading');$('skel').classList.add('show');
-  setStatus(t('calling'));
-  try{
-    const res=await fetch(cfg.endpoint,{method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer '+cfg.key},
-      body:JSON.stringify({model:cfg.model,messages:[
-        {role:'system',content:'You output only valid JSON. No markdown fences, no commentary.'},
-        {role:'user',content:buildPrompt(tpl,platform,product,point,antiRepeat)}],
-        temperature:antiRepeat?1.15:.95})});
-    if(!res.ok){const txt=await res.text();throw new Error('HTTP '+res.status+' — '+txt.slice(0,300));}
-    const data=await res.json();
-    const text=data.choices&&data.choices[0]&&data.choices[0].message&&data.choices[0].message.content;
-    if(!text)throw new Error(t('emptyRes'));
-    const obj=extractJson(text);
-    lastReq.obj=obj;
-    render(obj,'live',platform,product,point);
-    setStatus(t('liveOk'));
-  }catch(e){
-    showErr(t('failPrefix')+e.message+'\n'+t('corsAdvice'));
-    setStatus(t('liveFail'));
-  }finally{$('gen').disabled=false;$('gen').classList.remove('loading');$('skel').classList.remove('show');}
-}
-$('gen').onclick=()=>runLive('');
-function extractJson(text){
-  let s=text.trim().replace(/^```(json)?/i,'').replace(/```$/,'').trim();
-  const a=s.indexOf('{'),b=s.lastIndexOf('}');
-  if(a<0||b<=a)throw new Error(t('noJson'));
-  return JSON.parse(s.slice(a,b+1));
-}
-
-/* ============ 渲染 ============ */
-let lastText='';
-function esc(x){return String(x==null?'':x).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
-function sec(title,inner){return `<div class="tsec"><h4>${esc(title)}</h4>${inner}</div>`;}
-function li(label,txt,img){return `<li><span class="k">${esc(label)}</span><span>${esc(txt)}${img?`<img class="item-img" src="${img}" alt="" loading="lazy">`:''}</span></li>`;}
-function imgsFor(product){return IMG[product.id]||IMG.tripod;}
-function stripHtml(imgs){return `<img class="strip" src="${imgs[imgs.length-1]}" alt="" loading="lazy">`;}
-function render(obj,mode,platform,product,point){
-  $('out').classList.add('show');
-  const tplMeta=TEMPLATES.find(x=>x.id===tpl);
-  const imgs=imgsFor(product);
-  $('outTitle').textContent=t(tplMeta.labelKey)+' · '+dispName(product)+' · '+(lang==='zh'?t('platforms')[PLATFORM_KEYS.indexOf(platform)]:platform);
-  const b=$('modeBadge');b.style.display='inline-block';
-  b.className='badge '+(mode==='live'?'live':'lib');
-  b.textContent=mode==='live'?t('liveBadge'):t('libBadge');
-  let html='',text='';
-  if(tpl==='script'){
-    html+=stripHtml(imgs);
-    html+=sec(t('sScript'),obj.script.map(s=>
-      `<div class="seg" style="margin-top:8px;box-shadow:none"><div class="t">${esc(s.time)}</div><div><div class="vo">${esc(s.voiceover)}</div><div class="vis">${t('visual')}${esc(s.visual)}</div></div></div>`).join(''));
-    html+=sec(t('sStoryboard'),`<div style="overflow-x:auto;margin-top:6px"><table class="sb" style="box-shadow:none;margin-top:0"><tr>${t('sbHead').map(h=>`<th>${h}</th>`).join('')}</tr>`+
-      obj.storyboard.map(s=>`<tr><td>${esc(s.shot)}<img class="thumb" src="${imgs[(s.shot-1)%imgs.length]}" alt="" loading="lazy"></td><td>${esc(s.duration)}</td><td>${esc(s.framing)}</td><td>${esc(s.action)}</td><td>${esc(s.caption)}</td><td>${esc(s.voiceover)}</td></tr>`).join('')+`</table></div>`);
-    html+=`<div class="captionbox"><div class="eyebrow">${t('sCaption')}</div><div class="cap">${esc(obj.caption||'')}</div><div class="tags">${esc((obj.hashtags||[]).join(' '))}</div><div class="cta-line">${esc(obj.cta?t('ctaPrefix')+obj.cta:'')}</div></div>`;
-    text=obj.script.map(s=>s.time+'\n'+s.voiceover+'\nVisual: '+s.visual).join('\n\n')+
-      '\n\nSTORYBOARD\n'+obj.storyboard.map(s=>`Shot ${s.shot} (${s.duration}) ${s.framing}: ${s.action} | ${s.caption} | ${s.voiceover}`).join('\n')+
-      '\n\nCAPTION\n'+(obj.caption||'')+'\n'+(obj.hashtags||[]).join(' ')+'\nCTA: '+(obj.cta||'');
-  }else if(tpl==='product-desc'){
-    html+=stripHtml(imgs);
-    html+=sec(t('sTitle'),`<div class="txt">${esc(obj.title||'')}</div><img class="item-img" src="${imgs[0]}" alt="" loading="lazy">`);
-    html+=sec(t('sSubtitle'),`<div class="txt">${esc(obj.subtitle||'')}</div>`);
-    html+=sec(t('sBullets'),`<ul>${(obj.bullets||[]).map((x,i)=>li(i+1,x)).join('')}</ul>`);
-    html+=sec(t('sDescription'),`<div class="txt">${esc(obj.description||'')}</div>`);
-    html+=sec(t('sFaq'),(obj.faq||[]).map(x=>`<div class="qa"><div class="q">Q: ${esc(x.q)}</div><div class="a">${esc(x.a)}</div></div>`).join(''));
-    html+=sec(t('sSeo'),`<div class="txt">${esc(obj.seo_title||'')}</div>`);
-    html+=sec(t('sMeta'),`<div class="txt">${esc(obj.meta_description||'')}</div>`);
-    text=(obj.title||'')+'\n'+(obj.subtitle||'')+'\n\nBULLETS\n'+(obj.bullets||[]).map(x=>'- '+x).join('\n')+
-      '\n\nDESCRIPTION\n'+(obj.description||'')+'\n\nFAQ\n'+(obj.faq||[]).map(x=>'Q: '+x.q+'\nA: '+x.a).join('\n\n')+
-      '\n\nSEO TITLE\n'+(obj.seo_title||'')+'\nMETA\n'+(obj.meta_description||'');
-  }else if(tpl==='challenge'){
-    html+=stripHtml(imgs);
-    html+=sec(t('sDays'),`<ul>${(obj.days||[]).map(d=>li('Day '+d.day,(d.task||'')+(d.goal?' · Goal: '+d.goal:'')+(d.tip?' · Tip: '+d.tip:''),imgs[d.day%imgs.length])).join('')}</ul>`);
-    html+=sec(t('sClosing'),`<div class="txt">${esc(obj.closing||'')}</div>`);
-    text=(obj.days||[]).map(d=>`Day ${d.day}\nTask: ${d.task}\nGoal: ${d.goal}\nTip: ${d.tip}`).join('\n\n')+'\n\n'+(obj.closing||'');
-  }else if(tpl==='replies'){
-    html+=stripHtml(imgs);
-    html+=sec(t('sReplies'),`<ul>${(obj.replies||[]).map((r,i)=>li(r.tone||('#'+(i+1)),r.reply)).join('')}</ul>`);
-    text=(obj.replies||[]).map((r,i)=>(i+1)+'. ['+(r.tone||'')+'] '+r.reply).join('\n');
-  }else if(tpl==='hooks'){
-    html+=stripHtml(imgs);
-    html+=sec(t('sHooks'),`<ul>${(obj.hooks||[]).map((h,i)=>li(h.style||('#'+(i+1)),h.text,imgs[i%imgs.length])).join('')}</ul>`);
-    text=(obj.hooks||[]).map((h,i)=>(i+1)+'. ['+(h.style||'')+'] '+h.text).join('\n');
-  }else if(tpl==='emails'){
-    html+=stripHtml(imgs);
-    html+=sec(t('sEmails'),(obj.emails||[]).map(e=>
-      `<div class="qa"><div class="q">Day ${esc(e.day)} — ${esc(e.subject)}</div><div class="a">${esc(e.body)}</div></div>`).join(''));
-    text=(obj.emails||[]).map(e=>`Day ${e.day}\nSubject: ${e.subject}\n${e.body}`).join('\n\n');
-  }
-  $('outputBox').innerHTML=html;
-  lastText=text;
-  saveHist(mode,platform,product,point,obj);
-  $('out').scrollIntoView({behavior:'smooth',block:'start'});
-}
-$('copyAll').onclick=async()=>{
-  try{await navigator.clipboard.writeText(lastText);toast(t('copied'));}
-  catch(e){showErr(t('copyBlocked'));}
-};
-
-/* ============ 换一版 ============ */
-function antiLines(obj){
-  const lines=[];
-  if(tpl==='script'&&Array.isArray(obj.script))obj.script.forEach(s=>{lines.push(s.voiceover.slice(0,90));lines.push(s.visual.slice(0,60));});
-  if(tpl==='hooks'&&Array.isArray(obj.hooks))obj.hooks.forEach(h=>lines.push(h.text.slice(0,90)));
-  if(tpl==='replies'&&Array.isArray(obj.replies))obj.replies.forEach(r=>lines.push(r.reply.slice(0,90)));
-  return [...new Set(lines)].slice(0,8).join('\n');
-}
-$('variant').onclick=()=>{
-  if(!lastReq)return toast(t('libOut'));
-  if(lastReq.mode==='lib'){
-    const obj=offlineObj(lastReq.tpl,lastReq.platform,lastReq.product,lastReq.point);
-    render(obj,'lib',lastReq.platform,lastReq.product,lastReq.point);
-    setStatus(t('libOut'));
-  }else{
-    tpl=lastReq.tpl;buildTplChips();
-    runLive(antiLines(lastReq.obj||{}));
-  }
-};
-
-/* ============ 历史 ============ */
-function saveHist(mode,platform,product,point,obj){
-  const h=JSON.parse(localStorage.getItem(LS_HIST)||'[]');
-  h.unshift({mode,tpl,platform,productId:product.id,point,obj,at:new Date().toLocaleString()});
-  localStorage.setItem(LS_HIST,JSON.stringify(h.slice(0,10)));renderHist();
-}
-function renderHist(){
-  const h=JSON.parse(localStorage.getItem(LS_HIST)||'[]');
-  $('histWrap').style.display=h.length?'block':'none';
-  $('histList').innerHTML=h.map((r,i)=>{
-    const meta=TEMPLATES.find(x=>x.id===r.tpl)||TEMPLATES[0];
-    const prod=PRODUCTS.find(p=>p.id===r.productId)||{nameZh:'',name:''};
-    const pName=lang==='zh'?prod.nameZh:prod.name;
-    const pPlat=lang==='zh'?t('platforms')[PLATFORM_KEYS.indexOf(r.platform)]:r.platform;
-    return `<div class="hist-item" data-i="${i}">
-    <strong>${esc(t(meta.labelKey))}</strong> · ${esc(pName)} · ${esc(pPlat)} · ${r.mode==='live'?t('live'):t('lib')}<br>
-    <span style="color:var(--gray)">${esc(r.at)}</span></div>`;}).join('');
-  document.querySelectorAll('.hist-item').forEach(el=>el.onclick=()=>{
-    const r=JSON.parse(localStorage.getItem(LS_HIST)||'[]')[el.dataset.i];
-    const prod=PRODUCTS.find(p=>p.id===r.productId);
-    tpl=r.tpl;buildTplChips();render(r.obj,r.mode,r.platform,prod,r.point);});
-}
-$('clearHist').onclick=()=>{localStorage.removeItem(LS_HIST);renderHist();toast(t('histCleared'));};
-
-/* ============ 模板库按钮 ============ */
-$('genLib').onclick=()=>{
-  const product=curProduct(), point=curPointEn();
-  lastReq={mode:'lib',tpl,platform,product,point};
-  const obj=offlineObj(tpl,platform,product,point);
-  lastReq.obj=obj;
-  render(obj,'lib',platform,product,point);
-  setStatus(t('libOut'));
-};
-
-/* ============ 语言切换与初始化 ============ */
-function applyLang(){
-  document.body.classList.toggle('zh',lang==='zh');
-  document.documentElement.lang=lang==='zh'?'zh-CN':'en';
-  $('langEn').classList.toggle('on',lang==='en');$('langZh').classList.toggle('on',lang==='zh');
-  document.querySelectorAll('[data-i18n]').forEach(el=>{el.innerHTML=t(el.dataset.i18n);});
-  $('heroTitle').innerHTML=t('heroTitle');
-  buildTplChips();buildPlatformChips();buildProductSel();
-  $('status').textContent=(cfg.key&&cfg.model)?t('liveReady')+cfg.model:t('ready');
-  renderHist();
-  localStorage.setItem('ss-live-lang',lang);
-}
-$('langEn').onclick=()=>{lang='en';applyLang();};
-$('langZh').onclick=()=>{lang='zh';applyLang();};
-
-applyLang();
-</script>
+<footer><b>ShotStart — Your first shot starts here.</b>店匠独立站 × ShotStarter AI × 7 天创作者挑战</footer>
 </body>
 </html>
