@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="ShotStart 创作技巧：拍摄、布光、脚本、剪辑与发布的一站式新手创作指南。">
+<title>ShotStart 创作技巧 · Creator Academy</title>
+<style>
+:root{
+  --ink:#292a3d;--ink-2:#44465d;--muted:#74768b;--faint:#999bad;
+  --purple:#7658c8;--purple-2:#9b78dc;--teal:#2ca9a2;--blue:#4b91c9;
+  --glass:rgba(255,255,255,.53);--glass-strong:rgba(255,255,255,.76);
+  --line:rgba(255,255,255,.82);--hair:rgba(80,77,120,.10);
+  --shadow:0 18px 50px rgba(82,79,128,.10),inset 0 1px 0 rgba(255,255,255,.85);
+  --shadow-hover:0 24px 55px rgba(82,79,128,.16),inset 0 1px 0 #fff;
+  --radius:24px;--ease:cubic-bezier(.2,.75,.25,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:96px}
+body{min-height:100vh;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;line-height:1.65;background:
+  radial-gradient(circle at 8% 6%,rgba(213,188,248,.72),transparent 34%),
+  radial-gradient(circle at 92% 16%,rgba(180,231,232,.74),transparent 34%),
+  radial-gradient(circle at 74% 92%,rgba(186,235,216,.62),transparent 35%),
+  linear-gradient(125deg,#eee6fa 0%,#e9e9f8 38%,#e4f1f7 68%,#e6f4ee 100%);
+  -webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.26;background-image:radial-gradient(rgba(84,79,124,.34) .7px,transparent .7px);background-size:27px 27px;mask-image:linear-gradient(to bottom,#000,transparent 78%)}
+button,input,select{font:inherit}button,a{-webkit-tap-highlight-color:transparent}
+button{color:inherit}a{color:inherit;text-decoration:none}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid rgba(80,158,200,.35);outline-offset:3px}
+button{border:0;cursor:pointer}.hidden{display:none!important}
+.page{position:relative;max-width:1440px;margin:0 auto;padding:0 42px 60px}
+.topbar{position:sticky;top:14px;z-index:40;margin:14px 0 46px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.46);box-shadow:0 10px 35px rgba(86,82,128,.07);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)}
+.topbar-inner{height:70px;display:flex;align-items:center;padding:0 20px;gap:26px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:760;letter-spacing:-.02em;white-space:nowrap}
+.brand-mark{width:38px;height:38px;display:grid;place-items:center;border-radius:13px;color:#fff;background:linear-gradient(135deg,var(--teal),var(--purple));box-shadow:0 8px 20px rgba(111,89,190,.22)}
+.brand-mark svg{width:22px;height:22px}.brand small{display:block;font-size:9px;line-height:1.1;letter-spacing:.16em;color:var(--muted);font-weight:700;margin-top:2px}
+.nav{display:flex;align-items:center;gap:6px;margin-left:auto}.nav button{padding:9px 15px;border-radius:12px;background:transparent;color:var(--ink-2);font-size:14px;font-weight:600;transition:.2s}
+.nav button:hover,.nav button.active{background:rgba(255,255,255,.7);color:var(--purple);box-shadow:0 4px 12px rgba(80,75,120,.05)}
+.nav .count{display:inline-grid;place-items:center;min-width:19px;height:19px;margin-left:4px;border-radius:99px;background:rgba(118,88,200,.11);font-size:11px}
+.top-actions{display:flex;align-items:center;gap:9px}.soft-btn,.icon-btn{border:1px solid rgba(255,255,255,.8);background:rgba(255,255,255,.48);box-shadow:0 5px 15px rgba(83,80,120,.05);transition:.2s}
+.soft-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 15px;border-radius:13px;font-size:13px;font-weight:650}
+.soft-btn:hover,.icon-btn:hover{background:rgba(255,255,255,.82);transform:translateY(-1px)}
+.soft-btn svg{width:17px;height:17px}.back-btn{white-space:nowrap}
+.hero{display:grid;grid-template-columns:minmax(0,1.9fr) minmax(300px,.82fr);gap:26px;align-items:stretch}
+.hero-main{padding:28px 4px 0}.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.14em;font-weight:750;color:var(--purple);text-transform:uppercase}
+.eyebrow::before{content:"";width:22px;height:1px;background:currentColor}
+h1{font-size:clamp(35px,4.25vw,62px);line-height:1.13;letter-spacing:-.055em;margin:15px 0 17px;font-weight:780}
+h1 .gradient{background:linear-gradient(100deg,#497fb8 0%,#7461c5 48%,#9a67c1 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-sub{max-width:640px;color:var(--muted);font-size:16px;line-height:1.85}
+.search-wrap{position:relative;display:flex;align-items:center;margin-top:28px;padding:7px 7px 7px 20px;border:1px solid var(--line);border-radius:19px;background:rgba(255,255,255,.55);box-shadow:var(--shadow);backdrop-filter:blur(18px)}
+.search-wrap>svg{width:21px;height:21px;color:#777a90;flex:none}.search-wrap input{width:100%;border:0;outline:0;background:transparent;padding:12px 13px;color:var(--ink);font-size:15px}.search-wrap input::placeholder{color:#9294a7}
+.primary-btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border-radius:14px;padding:13px 23px;color:#fff;font-weight:700;font-size:14px;background:linear-gradient(115deg,#35aca4,#4a8fc3 48%,#7958c5);box-shadow:0 10px 24px rgba(102,86,181,.21);transition:transform .2s var(--ease),box-shadow .2s}
+.primary-btn:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(102,86,181,.28)}.primary-btn:active{transform:translateY(0)}
+.primary-btn svg{width:18px;height:18px}.primary-btn.full{width:100%}
+.stats{display:flex;gap:34px;margin-top:26px;flex-wrap:wrap}.stat strong{font-size:29px;line-height:1;font-weight:720;letter-spacing:-.04em}.stat span{display:block;color:var(--muted);font-size:12px;margin-top:7px}
+.quick-filters{display:flex;gap:9px;margin-top:24px;flex-wrap:wrap}.filter-chip{padding:8px 15px;border:1px solid var(--line);border-radius:99px;background:rgba(255,255,255,.42);font-size:12px;color:var(--ink-2);transition:.2s}.filter-chip:hover,.filter-chip.active{background:rgba(255,255,255,.78);color:var(--purple);box-shadow:0 5px 15px rgba(80,75,120,.06)}
+.glass{border:1px solid var(--line);background:var(--glass);box-shadow:var(--shadow);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border-radius:var(--radius)}
+.feature-card{position:relative;overflow:hidden;padding:27px;display:flex;flex-direction:column;min-height:410px}
+.feature-card::after{content:"";position:absolute;width:240px;height:240px;border-radius:50%;right:-80px;top:-70px;background:radial-gradient(circle,rgba(105,197,190,.18),transparent 68%);pointer-events:none}
+.feature-top{display:flex;align-items:center;justify-content:space-between;gap:12px}.feature-label{font-size:12px;color:var(--muted);font-weight:650}.live-dot{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:#43887d}.live-dot::before{content:"";width:7px;height:7px;border-radius:50%;background:#54b9a6;box-shadow:0 0 0 5px rgba(84,185,166,.10)}
+.feature-icon{width:72px;height:72px;margin:27px 0 20px;border-radius:23px;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,#42b8aa,#6c62c7);box-shadow:0 16px 35px rgba(92,99,184,.20)}.feature-icon svg{width:36px;height:36px}
+.feature-card h2{font-size:24px;line-height:1.35;letter-spacing:-.035em}.feature-card p{font-size:13px;color:var(--muted);margin-top:10px}.mini-steps{list-style:none;margin:20px 0 23px}.mini-steps li{display:flex;align-items:center;gap:10px;padding:7px 0;font-size:13px;color:var(--ink-2)}.mini-steps i{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;font-style:normal;font-size:10px;font-weight:750;color:var(--purple);background:rgba(118,88,200,.10)}.feature-card .primary-btn{margin-top:auto}
+.quick-actions{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:24px 0 28px}.action-card{display:flex;align-items:center;gap:15px;padding:18px 22px;text-align:left;border:1px solid var(--line);border-radius:19px;background:rgba(255,255,255,.42);box-shadow:0 8px 25px rgba(82,79,128,.05);transition:.25s var(--ease)}.action-card:hover{transform:translateY(-3px);background:rgba(255,255,255,.68);box-shadow:var(--shadow-hover)}
+.action-icon{width:43px;height:43px;border-radius:14px;display:grid;place-items:center;background:rgba(255,255,255,.68);color:var(--purple);flex:none}.action-icon.teal{color:var(--teal)}.action-icon svg{width:22px;height:22px}.action-card strong{font-size:15px}.action-card small{display:block;color:var(--muted);margin-top:2px;font-size:12px}.action-card .arrow{margin-left:auto;color:var(--muted)}
+.content-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:24px;align-items:start}.panel{padding:27px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:22px}.section-head h2{font-size:23px;letter-spacing:-.035em}.section-head p{font-size:12px;color:var(--muted);margin-top:3px}.section-head .side-note{font-size:12px;color:var(--muted);white-space:nowrap}
+.category-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.category-card{position:relative;text-align:left;padding:19px;border:1px solid rgba(255,255,255,.8);border-radius:18px;background:rgba(255,255,255,.45);min-height:152px;transition:.25s var(--ease);overflow:hidden}.category-card:hover{transform:translateY(-3px);background:rgba(255,255,255,.73);box-shadow:0 16px 35px rgba(80,77,120,.09)}
+.cat-icon{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;margin-bottom:13px;color:var(--cat-color,var(--purple));background:var(--cat-bg,rgba(118,88,200,.09))}.cat-icon svg{width:20px;height:20px}.category-card strong{display:block;font-size:15px}.category-card .en{font-size:9px;letter-spacing:.1em;color:var(--faint);text-transform:uppercase}.category-card p{font-size:12px;color:var(--muted);margin-top:7px;line-height:1.55}.cat-count{position:absolute;right:16px;top:17px;font-size:11px;color:var(--muted)}
+.sidebar{display:grid;gap:18px}.side-card{padding:22px}.side-card h3{font-size:16px;letter-spacing:-.02em}.popular-tag{display:inline-block;margin:13px 0 8px;padding:4px 10px;border-radius:99px;background:rgba(118,88,200,.09);color:var(--purple);font-size:10px;font-weight:700}.popular-title{font-size:18px;font-weight:720;line-height:1.45}.popular-desc{font-size:12px;color:var(--muted);margin:8px 0 15px}.text-link{display:inline-flex;align-items:center;gap:6px;padding:0;background:transparent;color:var(--purple);font-size:12px;font-weight:700}.text-link svg{width:15px;height:15px}
+.progress-wrap{display:flex;align-items:center;gap:17px;margin-top:17px}.progress-ring{--progress:0deg;width:76px;height:76px;border-radius:50%;display:grid;place-items:center;flex:none;background:conic-gradient(var(--teal) var(--progress),rgba(255,255,255,.55) 0);position:relative}.progress-ring::before{content:"";position:absolute;inset:7px;border-radius:50%;background:#edf1f2;box-shadow:inset 0 1px 4px rgba(80,80,110,.06)}.progress-ring strong{position:relative;font-size:18px}.progress-copy strong{display:block;font-size:20px}.progress-copy span{font-size:11px;color:var(--muted)}.side-tip{font-size:11px;color:var(--muted);padding-top:14px;margin-top:15px;border-top:1px solid var(--hair)}
+.library{margin-top:26px}.library-tools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}.library-tools .filter-chip.active{color:#fff;background:linear-gradient(115deg,#53aca9,#7a64c3);border-color:transparent}.result-count{font-size:12px;color:var(--muted)}
+.tips-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.tip-card{position:relative;border:1px solid rgba(255,255,255,.82);border-radius:20px;background:rgba(255,255,255,.47);min-height:248px;overflow:hidden;transition:.25s var(--ease)}.tip-card:hover{transform:translateY(-4px);background:rgba(255,255,255,.72);box-shadow:0 18px 42px rgba(80,77,120,.10)}.tip-link{display:flex;flex-direction:column;height:100%;padding:22px}.tip-meta{display:flex;gap:7px;align-items:center;flex-wrap:wrap;padding-right:35px}.badge{display:inline-flex;align-items:center;padding:4px 9px;border-radius:99px;background:var(--cat-bg,rgba(118,88,200,.08));color:var(--cat-color,var(--purple));font-size:10px;font-weight:700}.badge.neutral{background:rgba(103,105,126,.07);color:var(--muted)}.tip-card h3{font-size:18px;line-height:1.45;letter-spacing:-.02em;margin-top:16px}.tip-card p{font-size:12px;color:var(--muted);margin-top:9px;line-height:1.75}.tip-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:20px;font-size:11px;color:var(--muted)}.tip-bottom svg{width:16px;height:16px;color:var(--purple)}
+.fav-btn{position:absolute;right:14px;top:14px;width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:rgba(255,255,255,.48);color:#8d8fa0;z-index:2;transition:.2s}.fav-btn svg{width:17px;height:17px}.fav-btn.on{color:var(--purple);background:rgba(118,88,200,.11)}.fav-btn.on svg{fill:currentColor}
+.empty{padding:45px 20px;text-align:center;border:1px dashed rgba(99,94,140,.18);border-radius:18px;color:var(--muted);font-size:13px}.empty strong{display:block;color:var(--ink);font-size:17px;margin-bottom:6px}.empty .soft-btn{margin-top:16px}
+.footer{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:35px;padding:22px 4px 0;border-top:1px solid rgba(255,255,255,.6);font-size:11px;color:var(--muted)}.footer a{color:var(--purple);font-weight:650}
+/* Detail */
+.detail-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}.breadcrumb{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted)}.breadcrumb a{color:var(--purple)}
+.detail-layout{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:25px;align-items:start}.detail-main{padding:34px}.detail-kicker{display:flex;gap:8px;align-items:center}.detail-main h1{font-size:clamp(30px,4vw,46px);margin:17px 0 13px}.detail-lead{color:var(--muted);max-width:760px;font-size:15px}.detail-facts{display:flex;gap:22px;flex-wrap:wrap;padding:19px 0;margin-top:22px;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}.fact{font-size:12px;color:var(--muted)}.fact strong{display:block;color:var(--ink);font-size:13px;margin-top:2px}
+.detail-section{margin-top:29px}.detail-section h2{font-size:19px;margin-bottom:14px;letter-spacing:-.02em}.scenario{padding:18px 20px;border-radius:16px;background:rgba(255,255,255,.45);color:var(--ink-2);font-size:14px}.step-list{list-style:none;display:grid;gap:12px;counter-reset:steps}.step-list li{position:relative;padding:17px 18px 17px 62px;border:1px solid rgba(255,255,255,.7);border-radius:16px;background:rgba(255,255,255,.38);font-size:14px;counter-increment:steps}.step-list li::before{content:counter(steps);position:absolute;left:17px;top:17px;width:28px;height:28px;border-radius:9px;display:grid;place-items:center;background:linear-gradient(135deg,rgba(44,169,162,.14),rgba(118,88,200,.14));color:var(--purple);font-size:12px;font-weight:750}.example-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.example{padding:18px;border-radius:16px;background:rgba(255,255,255,.42);font-size:13px}.example strong{display:block;font-size:11px;letter-spacing:.08em;margin-bottom:7px}.example.before strong{color:#9a748c}.example.after strong{color:#368f83}.mistakes{list-style:none;display:grid;gap:9px}.mistakes li{position:relative;padding-left:20px;font-size:13px;color:var(--ink-2)}.mistakes li::before{content:"";position:absolute;left:2px;top:10px;width:7px;height:7px;border-radius:50%;background:#c592aa}
+.detail-side{display:grid;gap:18px;position:sticky;top:104px}.action-panel{padding:23px}.action-panel h3{font-size:16px}.action-panel p{font-size:12px;color:var(--muted);margin:7px 0 17px}.action-panel .primary-btn,.action-panel .soft-btn{width:100%;margin-top:10px}.prompt-preview{max-height:170px;overflow:auto;padding:14px;border-radius:13px;background:rgba(46,45,65,.88);color:#e8e6f3;font:11px/1.75 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre-wrap;margin-top:14px}.learned.on{color:#fff;background:linear-gradient(115deg,#3ba99b,#68a789)}
+.related{padding:22px}.related-list{display:grid;gap:9px;margin-top:13px}.related-item{display:block;padding:12px;border-radius:13px;background:rgba(255,255,255,.36);font-size:12px;transition:.2s}.related-item:hover{background:rgba(255,255,255,.7);color:var(--purple)}
+/* AI */
+.ai-head{text-align:center;max-width:740px;margin:8px auto 30px}.ai-head h1{font-size:clamp(31px,4vw,48px);margin:13px 0}.ai-head p{color:var(--muted);font-size:14px}.ai-layout{display:grid;grid-template-columns:370px minmax(0,1fr);gap:24px;align-items:start}.ai-controls{padding:26px}.field{margin-top:19px}.field label{display:block;font-size:12px;font-weight:650;color:var(--muted);margin-bottom:8px}.field select{width:100%;appearance:none;border:1px solid rgba(255,255,255,.85);border-radius:13px;padding:12px 40px 12px 13px;color:var(--ink);background:rgba(255,255,255,.62) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='m1 1 5 5 5-5' fill='none' stroke='%2374768b' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right 14px center}.ai-controls .primary-btn{width:100%;margin-top:24px}.local-note{font-size:11px;color:var(--muted);text-align:center;margin-top:12px}.ai-output{padding:28px;min-height:480px}.output-placeholder{height:420px;display:grid;place-items:center;text-align:center;color:var(--muted)}.output-placeholder svg{width:52px;height:52px;color:#a49ac6;margin-bottom:14px}.output-placeholder strong{display:block;color:var(--ink-2);font-size:17px;margin-bottom:5px}.output-head{display:flex;align-items:start;justify-content:space-between;gap:15px;margin-bottom:20px}.output-head h2{font-size:21px}.output-badge{display:inline-flex;padding:5px 10px;border-radius:99px;background:rgba(44,169,162,.10);color:#31877f;font-size:10px;white-space:nowrap}.shot-list{display:grid;gap:11px}.shot{display:grid;grid-template-columns:78px 1fr;gap:15px;padding:16px;border:1px solid rgba(255,255,255,.75);border-radius:16px;background:rgba(255,255,255,.4)}.shot-time{font-size:11px;font-weight:750;color:var(--purple)}.shot h3{font-size:14px;margin-bottom:5px}.shot p{font-size:12px;color:var(--muted)}.shot .vo{color:var(--ink-2);margin-top:7px}.caption-box{margin-top:16px;padding:19px;border-radius:16px;background:rgba(47,46,66,.90);color:#f2f0f8}.caption-box small{color:#a9d9d4;letter-spacing:.08em}.caption-box p{font-size:13px;margin-top:9px;white-space:pre-wrap}.tags{font-size:11px;color:#c5b9e8;margin-top:9px}.output-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+/* Dialog & toast */
+dialog{width:min(570px,calc(100% - 32px));border:1px solid rgba(255,255,255,.85);border-radius:24px;padding:27px;color:var(--ink);background:rgba(242,240,250,.94);box-shadow:0 30px 80px rgba(50,45,85,.24);backdrop-filter:blur(24px)}dialog::backdrop{background:rgba(42,40,61,.28);backdrop-filter:blur(5px)}.dialog-head{display:flex;align-items:start;justify-content:space-between;gap:15px}.dialog-head h2{font-size:22px}.dialog-head p{font-size:12px;color:var(--muted);margin-top:4px}.close-btn{width:34px;height:34px;border-radius:11px;background:rgba(255,255,255,.55);font-size:20px;color:var(--muted)}.guide-form{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:21px}.guide-form .primary-btn{grid-column:1/-1}.guide-results{display:grid;gap:10px;margin-top:18px}.guide-result{display:block;padding:15px;border:1px solid rgba(255,255,255,.8);border-radius:15px;background:rgba(255,255,255,.48)}.guide-result:hover{background:rgba(255,255,255,.8)}.guide-result strong{font-size:14px}.guide-result p{font-size:11px;color:var(--muted);margin-top:4px}.toast{position:fixed;left:50%;bottom:28px;z-index:100;transform:translate(-50%,15px);padding:11px 20px;border-radius:99px;background:rgba(43,42,60,.92);color:#fff;font-size:12px;opacity:0;pointer-events:none;transition:.25s;box-shadow:0 10px 30px rgba(40,38,60,.22)}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:1120px){.page{padding-inline:28px}.hero{grid-template-columns:1.5fr .85fr}.content-grid{grid-template-columns:1fr}.sidebar{grid-template-columns:1fr 1fr}.category-grid{grid-template-columns:repeat(3,1fr)}.tips-grid{grid-template-columns:repeat(2,1fr)}.detail-layout{grid-template-columns:1fr}.detail-side{position:static;grid-template-columns:1fr 1fr}.ai-layout{grid-template-columns:320px 1fr}}
+@media(max-width:780px){.page{padding:0 17px 40px}.topbar{top:8px;margin-top:8px;margin-bottom:30px}.topbar-inner{height:62px;padding:0 12px;gap:10px}.brand{font-size:13px}.brand-mark{width:34px;height:34px}.brand small{display:none}.nav{gap:2px}.nav button{font-size:12px;padding:8px 9px}.nav button:nth-child(2){display:none}.top-actions .back-btn{display:none}.hero{grid-template-columns:1fr}.hero-main{padding-top:7px}.hero-sub{font-size:14px}.feature-card{min-height:auto}.feature-icon{margin:20px 0 15px}.quick-actions{grid-template-columns:1fr}.category-grid{grid-template-columns:repeat(2,1fr)}.sidebar{grid-template-columns:1fr}.panel{padding:21px}.tips-grid{grid-template-columns:1fr}.tip-card{min-height:220px}.footer{align-items:flex-start;flex-direction:column}.detail-main{padding:23px}.detail-side{grid-template-columns:1fr}.example-grid{grid-template-columns:1fr}.ai-layout{grid-template-columns:1fr}.ai-output{min-height:400px}.output-placeholder{height:300px}.search-wrap{padding-left:14px}.search-wrap .primary-btn{padding:12px 16px}.stats{gap:25px}}
+@media(max-width:440px){h1{font-size:34px}.brand .brand-text{display:none}.nav{margin-left:0}.top-actions{margin-left:auto}.category-grid{grid-template-columns:1fr}.quick-filters{gap:7px}.search-wrap input{font-size:13px}.search-wrap .primary-btn span{display:none}.stats{gap:20px}.stat strong{font-size:25px}.guide-form{grid-template-columns:1fr}.shot{grid-template-columns:1fr;gap:6px}.output-head{flex-direction:column}.detail-facts{gap:15px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="page">
+<nav class="topbar" aria-label="主导航"><div class="topbar-inner">
+  <a class="brand" href="#home" aria-label="ShotStart 创作技巧首页">
+    <span class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7.5h3l1.4-2h7.2l1.4 2h3v11H4z"/><circle cx="12" cy="13" r="3.5"/><path d="M17.5 9.5h.01"/></svg></span>
+    <span class="brand-text">ShotStart · 创作技巧<small>CREATOR ACADEMY</small></span>
+  </a>
+  <div class="nav">
+    <button id="navHome" data-hash="home">技巧首页</button>
+    <button data-hash="catalog">分类索引</button>
+    <button id="navFav" data-hash="favorites">我的收藏 <span class="count" id="favCount">0</span></button>
+  </div>
+  <div class="top-actions"><button class="soft-btn back-btn" id="backBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m15 18-6-6 6-6"/></svg>返回店铺</button></div>
+</div></nav>
+
+<main>
+<!-- ===== 视图：技巧首页 ===== -->
+<section id="homeView">
+  <div class="hero">
+    <div class="hero-main">
+      <span class="eyebrow">ShotStart Creator Academy</span>
+      <h1>把第一个镜头，<br><span class="gradient">拍得更好。</span></h1>
+      <p class="hero-sub">从构图、布光到脚本与发布，把创作技巧拆成可以立刻照做的小步骤。不用专业设备，也不需要先学会复杂术语。</p>
+      <div class="search-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+        <input id="searchInput" type="search" aria-label="搜索创作技巧" placeholder="搜索技巧、场景或问题，例如“手抖”“开场”“自然光”" autocomplete="off">
+        <button class="primary-btn" id="searchBtn"><span>找技巧</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></button>
+      </div>
+      <div class="stats">
+        <div class="stat"><strong id="tipTotal">19</strong><span>实操技巧</span></div>
+        <div class="stat"><strong>6</strong><span>创作分类</span></div>
+        <div class="stat"><strong id="stepTotal">76</strong><span>分步演示</span></div>
+        <div class="stat"><strong>0</strong><span>基础也能开始</span></div>
+      </div>
+      <div class="quick-filters" id="heroFilters"></div>
+    </div>
+    <aside class="feature-card glass">
+      <div class="feature-top"><span class="feature-label">新手第一条</span><span class="live-dot">15 分钟可完成</span></div>
+      <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 5.5h8l1.5 2H20v11H4v-11h2.5z"/><circle cx="12" cy="13" r="3.5"/><path d="m10 11 4 2-4 2z"/></svg></div>
+      <h2>一部手机，拍出<br>15 秒产品短片</h2>
+      <p>不追求复杂，先完成“开场—问题—演示—行动”这四个镜头。</p>
+      <ol class="mini-steps"><li><i>1</i>固定手机，选好窗边机位</li><li><i>2</i>先拍结果，再补过程</li><li><i>3</i>每镜只讲一个重点</li></ol>
+      <button class="primary-btn full" data-detail="script-15">开始这条创作路线<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></button>
+    </aside>
+  </div>
+
+  <div class="quick-actions">
+    <button class="action-card" id="guideBtn"><span class="action-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8"/><path d="m14.8 9.2-1.7 3.9-3.9 1.7 1.7-3.9z"/></svg></span><span><strong>帮我选技巧</strong><small>按目标和时间，给你一条最短学习路径</small></span><span class="arrow">→</span></button>
+    <button class="action-card" data-hash="ai"><span class="action-icon teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3v3m0 12v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1m0-12.8-2.1 2.1m-8.6 8.6-2.1 2.1"/><circle cx="12" cy="12" r="4"/></svg></span><span><strong>生成拍摄方案</strong><small>选技巧和商品，得到四镜脚本与发布草稿</small></span><span class="arrow">→</span></button>
+  </div>
+
+  <div class="content-grid" id="catalog">
+    <section class="panel glass">
+      <div class="section-head"><div><h2>按创作环节找技巧</h2><p>每一步只解决一个具体问题</p></div><span class="side-note">6 个分区</span></div>
+      <div class="category-grid" id="categoryGrid"></div>
+    </section>
+    <aside class="sidebar">
+      <section class="side-card glass">
+        <h3>编辑精选</h3><span class="popular-tag">新手优先推荐</span>
+        <div class="popular-title">前 3 秒先给结果，别从自我介绍开始</div>
+        <p class="popular-desc">把最有信息量的画面放到开头，再解释你怎么做到。</p>
+        <button class="text-link" data-detail="hook-first">查看这个技巧<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></button>
+      </section>
+      <section class="side-card glass">
+        <h3>我的学习进度</h3>
+        <div class="progress-wrap"><div class="progress-ring" id="progressRing" role="progressbar" aria-valuemin="0" aria-valuemax="19" aria-valuenow="0"><strong id="progressPct">0%</strong></div><div class="progress-copy"><strong id="learnedCount">0 / 19</strong><span>个技巧已标记学会</span></div></div>
+        <p class="side-tip">收藏与学习记录只保存在当前浏览器，不会上传。</p>
+      </section>
+    </aside>
+  </div>
+
+  <section class="library panel glass" id="library">
+    <div class="section-head"><div><h2 id="libraryTitle">全部创作技巧</h2><p id="resultCount">19 个技巧</p></div><button class="soft-btn" id="resetFilters">重置筛选</button></div>
+    <div class="library-tools" id="libraryFilters"></div>
+    <div class="tips-grid" id="tipsGrid"></div>
+    <div class="empty hidden" id="emptyState"><strong>还没有匹配的技巧</strong><span id="emptyText">换个关键词，或清除分类后再试试。</span><br><button class="soft-btn" id="emptyReset">查看全部技巧</button></div>
+  </section>
+</section>
+
+<!-- ===== 视图：技巧详情 ===== -->
+<section id="detailView" class="hidden">
+  <div class="detail-top"><div class="breadcrumb"><a href="#home">技巧首页</a><span>/</span><span id="detailCrumb">技巧详情</span></div><button class="soft-btn" id="detailBack">← 返回列表</button></div>
+  <div class="detail-layout">
+    <article class="detail-main glass" id="detailMain"></article>
+    <aside class="detail-side">
+      <section class="action-panel glass">
+        <h3>把这个技巧用起来</h3><p>复制提示词给你的 AI，或直接生成一份四镜拍摄草稿。</p>
+        <button class="primary-btn" id="copyPrompt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 8V5H5v11h3"/></svg>复制 AI 提示词</button>
+        <button class="soft-btn" id="useInAI">生成拍摄方案 →</button>
+        <button class="soft-btn learned" id="markLearned">标记为已学会</button>
+        <div class="prompt-preview" id="promptPreview"></div>
+      </section>
+      <section class="related glass"><h3>同环节继续学</h3><div class="related-list" id="relatedList"></div></section>
+    </aside>
+  </div>
+</section>
+
+<!-- ===== 视图：拍摄方案生成器 ===== -->
+<section id="aiView" class="hidden">
+  <div class="detail-top"><div class="breadcrumb"><a href="#home">技巧首页</a><span>/</span><span>拍摄方案生成器</span></div><button class="soft-btn" data-hash="home">← 返回首页</button></div>
+  <div class="ai-head"><span class="eyebrow">Shot Planning Studio</span><h1>把一个技巧，变成<br><span class="gradient">可以开拍的四个镜头。</span></h1><p>选择创作技巧、发布平台和手中装备。本地模板会组织成 15 秒拍摄草稿，你可以继续修改，不需要联网或密钥。</p></div>
+  <div class="ai-layout">
+    <section class="ai-controls glass">
+      <div class="field"><label for="aiTip">创作技巧</label><select id="aiTip"></select></div>
+      <div class="field"><label for="aiPlatform">发布平台</label><select id="aiPlatform"><option>TikTok</option><option>Instagram Reels</option><option>YouTube Shorts</option></select></div>
+      <div class="field"><label for="aiProduct">拍摄装备</label><select id="aiProduct"><option value="tripod">可调节手机三脚架</option><option value="stand">桌面手机支架</option><option value="starter">新手创作者套装</option><option value="phone">只用手机</option></select></div>
+      <button class="primary-btn" id="generatePlan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m12 3 1.4 4.6L18 9l-4.6 1.4L12 15l-1.4-4.6L6 9l4.6-1.4zM19 15l.7 2.3L22 18l-2.3.7L19 21l-.7-2.3L16 18l2.3-.7z"/></svg>生成四镜方案</button>
+      <p class="local-note">本地模板生成 · 非实时 AI · 可离线使用</p>
+      <p class="local-note"><a href="https://ygtemple.github.io/" target="_blank" rel="noopener" style="color:var(--purple)">需要英文营销文案？打开 ShotStarter AI →</a></p>
+    </section>
+    <section class="ai-output glass" id="aiOutput">
+      <div class="output-placeholder"><div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 6h16v12H4zM8 6v12m8-12v12M4 10h4m8 0h4M4 14h4m8 0h4"/></svg><strong>你的四镜方案会出现在这里</strong><span>先选左侧内容，再点“生成四镜方案”</span></div></div>
+    </section>
+  </div>
+</section>
+</main>
+
+<footer class="footer"><span>ShotStart 创作技巧 · 从一个小技巧开始，完成比完美更重要。</span><span>技巧与模板均为创作指导，发布前请按真实素材复核。</span></footer>
+</div>
+
+<dialog id="guideDialog">
+  <div class="dialog-head"><div><h2>帮我选技巧</h2><p>回答两个问题，先学最有用的一项。</p></div><button class="close-btn" id="closeGuide" aria-label="关闭">×</button></div>
+  <div class="guide-form">
+    <div class="field"><label for="guideGoal">我现在最想解决</label><select id="guideGoal"><option value="first">第一次拍，不知道从哪里开始</option><option value="stable">画面抖、构图乱</option><option value="light">画面暗、产品没质感</option><option value="script">不知道说什么、怎么分镜</option><option value="growth">发了视频，但封面和文案弱</option></select></div>
+    <div class="field"><label for="guideTime">今天可用时间</label><select id="guideTime"><option value="5">5 分钟</option><option value="15" selected>15 分钟</option><option value="30">30 分钟以上</option></select></div>
+    <button class="primary-btn" id="recommendBtn">给我推荐</button>
+  </div>
+  <div class="guide-results" id="guideResults"></div>
+</dialog>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ============ 基础数据 ============ */
+const ICONS={
+ compose:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9.3 4v16M14.7 4v16M4 9.3h16M4 14.7h16"/></svg>',
+ light:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M19 5l-1.5 1.5m-11 11L5 19"/></svg>',
+ shoot:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7h4l1-2h6l1 2h4v12H4z"/><circle cx="12" cy="13" r="3"/></svg>',
+ script:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 3h9l3 3v15H6z"/><path d="M14 3v4h4M9 11h6m-6 4h6"/></svg>',
+ edit:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="7" cy="7" r="3"/><circle cx="7" cy="17" r="3"/><path d="m9.5 8.5 10 7.5m-10-7.5 10-7.5M4 12h16"/></svg>',
+ growth:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 19V9m5 10V5m6 14v-7m5 7V3"/></svg>'
+};
+const CATS={
+ compose:{name:'构图与画面',en:'Composition',desc:'主体放哪里，视线看哪里',color:'#7860ba',bg:'rgba(120,96,186,.10)',icon:'compose'},
+ light:{name:'布光与色彩',en:'Lighting',desc:'用自然光拍得更通透',color:'#aa7a42',bg:'rgba(204,157,89,.13)',icon:'light'},
+ shoot:{name:'手机拍摄',en:'Shooting',desc:'固定、运动与素材组织',color:'#398f8b',bg:'rgba(66,169,160,.11)',icon:'shoot'},
+ script:{name:'脚本与分镜',en:'Storytelling',desc:'把想法变成可拍镜头',color:'#557fc0',bg:'rgba(85,127,192,.11)',icon:'script'},
+ edit:{name:'剪辑与节奏',en:'Editing',desc:'删掉犹豫，让重点更清楚',color:'#a2619b',bg:'rgba(162,97,155,.10)',icon:'edit'},
+ growth:{name:'封面与发布',en:'Publishing',desc:'让内容被看懂、被找到',color:'#4b9670',bg:'rgba(75,150,112,.11)',icon:'growth'}
+};
+const TIPS=[
+{id:'hook-first',cat:'script',level:'入门',minutes:5,title:'前 3 秒先给结果',short:'先展示成品或变化，再解释过程，不让观众等你进入主题。',scenario:'适合产品演示、教程、前后对比和新手口播。观众刷到视频的前几秒，先看到“这和我有什么关系”。',tools:['手机','一个明确的结果画面'],steps:['先找出整条视频里最有信息量的一帧：完成品、前后差异或关键动作。','把这帧剪到开头，删掉“大家好，今天我要……”等铺垫。','用一句口播点出观众收益，例如“一个机位，让画面不再晃”。','随后再补准备过程和操作步骤，让结果与解释形成呼应。'],before:'“大家好，今天我想跟你们分享一下我最近买的三脚架……”',after:'先给稳定画面与手持画面的对比，再说：“差别只在这个固定方式。”',mistakes:['把夸张表情当作钩子，却没有实际信息。','开头给结果后，后文一直不解释，观众产生被欺骗感。'],prompt:'你是短视频编导。请围绕【主题】写一个 15 秒视频开头：第一帧直接展示结果或前后差异，口播不超过 20 字，不用夸张承诺。随后列出 3 个承接镜头。输出中文拍摄草稿。'},
+{id:'script-15',cat:'script',level:'入门',minutes:8,title:'15 秒四段脚本',short:'用“钩子—问题—演示—行动”组织第一条短片，不再边拍边想。',scenario:'适合第一条产品短片、技巧分享和轻量口播。目标不是塞满信息，而是让观众看懂一个重点。',tools:['手机','三脚架或桌面支架','一个核心卖点'],steps:['0—3 秒：展示结果，用一句话点明主题。','3—7 秒：还原一个真实问题，例如手持晃动、找不到机位。','7—12 秒：只演示一个解决动作，避免同时讲多个功能。','12—15 秒：停留成品画面，给出保存、查看详情或继续观看的提示。'],before:'15 秒里介绍包装、外观、所有配件、价格和购买方式。',after:'整条只讲“固定手机”这一件事，其余信息留到下一条。',mistakes:['四段时长平均分配，导致开头拖沓。','行动号召超过一个，观众不知道下一步做什么。'],prompt:'请把【主题】写成 15 秒四段短视频脚本，结构为 0—3 秒钩子、3—7 秒问题、7—12 秒演示、12—15 秒行动。每段给出画面、口播和字幕，口播口语化，不写未经证实的参数。'},
+{id:'storyboard-4',cat:'script',level:'入门',minutes:10,title:'四镜分镜表',short:'开拍前写清景别、动作和口播，减少漏拍与重复拍。',scenario:'适合产品展示、桌面教程和需要后期剪辑的短片。四个镜头足够完成一个简单闭环。',tools:['纸笔或备忘录','手机'],steps:['第一镜写“景别 + 主体”，例如特写：手把手机放上支架。','第二镜写清楚问题，不要只写“拍一个不好看的画面”。','第三镜写操作过程，保留一个关键动作即可。','第四镜写结果与收尾文字，并检查四个镜头能否连成一句话。'],before:'分镜表只有“拍产品、拍使用、拍结尾”，现场仍不知道拍什么。',after:'“近景：右手旋转云台，手机从竖屏转为横屏，保持 2 秒。”',mistakes:['分镜文字很文学，但无法指导机位和动作。','每镜包含太多动作，实际拍摄难以一次完成。'],prompt:'请为主题【主题】制作四镜分镜表，列为：镜号、时长、景别、画面动作、字幕、口播。四个镜头依次为结果、问题、演示、行动，每镜只安排一个主动作。'},
+{id:'window-light',cat:'light',level:'入门',minutes:6,title:'窗边 45° 自然光',short:'不开顶灯，用一扇窗做出柔和、有层次的人物或产品光。',scenario:'适合白天桌面拍摄、人物口播和小产品展示。阴天窗边通常比正午直射更容易控制。',tools:['一扇窗','手机','白色纸板（可选）'],steps:['关掉会造成杂色的顶灯，让窗户成为主要光源。','让主体侧对窗户，窗光从正面左右约 45° 照来。','观察眼窝和产品边缘，阴影过重时用白纸板在暗侧补光。','锁定手机曝光与对焦，避免画面随动作忽明忽暗。'],before:'人背对窗户，脸部变暗，背景窗外过曝。',after:'窗户在主体侧前方，面部有柔和明暗过渡，背景仍保留细节。',mistakes:['窗光、暖色顶灯和冷色屏幕灯混用，肤色不统一。','为了更亮把曝光拉得太高，损失产品表面细节。'],prompt:'请给我一个只用窗边自然光的手机拍摄布光方案，主体是【人物/产品】，场景是【房间描述】。用 4 步说明窗户方位、主体位置、反光板位置和曝光锁定方法。'},
+{id:'background-separation',cat:'light',level:'进阶',minutes:8,title:'让主体离开背景',short:'通过距离、明暗和简洁背景，让画面不再扁平杂乱。',scenario:'适合桌面口播、产品特写和居家拍摄。不需要换更贵的相机，也能提升层次。',tools:['手机','可移动桌面','一处简洁背景'],steps:['先把主体与墙面拉开距离，避免紧贴背景。','移走主体轮廓后方的杂物，尤其不要从头顶“长出来”。','让主体比背景略亮，或选择有色差但不刺眼的背景。','最后用 2 倍焦距或稍远机位试拍，比较背景压缩与变形。'],before:'人物紧贴书架，书本和电线穿过头部轮廓。',after:'人物离背景一步，轮廓后方保留单色区域，主体更突出。',mistakes:['一味虚化背景，却忽略主体与背景颜色过于接近。','使用过多装饰灯，让背景比主体更吸引注意。'],prompt:'请分析【主体】在【场景】中如何与背景分离，从距离、明暗、颜色和杂物处理四方面给出可执行调整，不推荐额外购买设备。'},
+{id:'product-light',cat:'light',level:'进阶',minutes:12,title:'小产品双面柔光',short:'用窗光和白纸板减少硬阴影，让支架、配件轮廓更干净。',scenario:'适合拍摄三脚架、云台、收纳包等小产品，不需要专业摄影灯。',tools:['窗光','白纸板两张','纯色桌面'],steps:['把产品放在窗边纯色桌面，主光从侧前方照入。','暗侧立一张白纸板，慢慢靠近，观察阴影是否变柔和。','用另一张纸板挡住杂乱背景，但保留一点空间感。','拍一张正常曝光和一张略降曝光的版本，保留材质高光细节。'],before:'产品正下方有浓重黑影，金属或塑料高光过曝。',after:'阴影仍可见但边缘柔和，产品轮廓和表面纹理都清楚。',mistakes:['把阴影全部消掉，产品失去立体感。','白板反光进入镜头，造成局部眩光。'],prompt:'请为【产品名称】设计一个低成本双面柔光方案。设备只有窗光、两张白纸板和纯色桌面。说明主光、补光、背景和曝光的具体摆法。'},
+{id:'stable-shot',cat:'shoot',level:'入门',minutes:5,title:'先固定，再谈防抖',short:'用三脚架或桌面支撑消除微晃，比后期增稳更直接。',scenario:'适合口播、产品操作和固定机位演示。手持只适合确有运动需要的镜头。',tools:['手机','三脚架或桌面支架','平面'],steps:['把支撑设备放在稳定平面，确认脚管或底座没有悬空。','手机夹紧后轻碰一下，观察是否仍会滑动或下垂。','构图完成再锁定对焦和曝光，避免操作中频繁重新测光。','需要移动镜头时单独设计，不要在固定镜头里无意识晃动。'],before:'单手拿手机边操作边拍，画面不断修正方向。',after:'手机固定后，双手只做产品操作，画面稳定且主体始终居中。',mistakes:['支架没有完全展开，重心落在支撑范围之外。','后期大幅增稳，画面边缘被裁切且出现拉扯。'],prompt:'请给我一份手机固定拍摄检查清单，场景为【口播/产品操作】，设备为【三脚架/桌面支架/无支架】。按拍摄前、开拍后各列 4 项检查。'},
+{id:'angles-3',cat:'compose',level:'入门',minutes:7,title:'三种机位讲清产品',short:'正面交代外观、45°交代结构、俯拍交代操作。',scenario:'适合产品展示和桌面教程。用少量明确机位代替无目的地换角度。',tools:['手机','三脚架','产品'],steps:['正面机位与产品主体平齐，拍一张完整外观，保留适当留白。','转到约 45°，让顶面与侧面同时出现，交代结构和厚度。','俯拍只用于手部操作或配件平铺，确保画面方向统一。','回看三种素材，删掉没有新增信息的重复机位。'],before:'每个动作都随机换角度，画面很多但产品结构仍看不清。',after:'外观、结构、操作各一个机位，剪辑时信息顺序明确。',mistakes:['广角贴得太近，产品边缘被拉伸。','俯拍时手机影子落在产品上。'],prompt:'请为【产品】设计三个互补机位：正面外观、45°结构、俯拍操作。每个机位说明手机高度、主体位置、要表达的信息和常见错误。'},
+{id:'rule-thirds',cat:'compose',level:'入门',minutes:5,title:'三分线不是必须居中',short:'给视线、动作和字幕预留空间，让画面更舒服。',scenario:'适合口播、操作演示和带字幕的视频。居中并非错误，但要有明确理由。',tools:['手机网格线','一个主体'],steps:['打开手机网格线，先确认地平线或桌边没有倾斜。','人物看向画面一侧时，在视线方向多留空间。','手部动作向哪边展开，就给哪边留动作空间。','预排字幕位置，避免字幕挡住眼睛、手部或产品关键部位。'],before:'人物居中但视线朝向画面边缘，字幕又压住手部。',after:'人物略偏一侧，视线和字幕都有空间，操作区域完整。',mistakes:['机械地把每个主体都压在交叉点上。','忽略短视频界面按钮，重要信息贴近右侧和底部。'],prompt:'请根据【竖屏/横屏】、【人物口播/产品操作】给出构图建议：主体位置、视线或动作留白、字幕安全区和需要避开的界面区域。'},
+{id:'broll-sequence',cat:'shoot',level:'进阶',minutes:10,title:'B-roll 按动作成组拍',short:'一个动作拍全景、近景、特写，后期才有真正的剪辑选择。',scenario:'适合产品组装、咖啡制作、桌面布置等过程镜头。',tools:['手机','三脚架','一个重复性动作'],steps:['先用全景完整做一遍动作，保留开始与结束。','再用近景拍同一动作，确保手部和工具不频繁出画。','最后补关键特写，例如卡扣合上、旋钮锁紧。','每组拍完后立刻检查焦点，再进入下一组，减少补拍。'],before:'同一个角度重复拍十次，后期仍只能硬切。',after:'全景交代位置，近景交代动作，特写交代关键细节。',mistakes:['三个景别拍的不是同一动作，剪辑无法连续。','镜头开始即动作、结束即停手，没有预留剪辑余量。'],prompt:'请把【操作过程】拆成三组 B-roll，每组包含全景、近景、特写。列出每镜要拍的动作、持续秒数，以及动作前后需要保留的余量。'},
+{id:'before-after',cat:'shoot',level:'进阶',minutes:8,title:'前后对比用同机位',short:'固定构图和曝光，观众才能一眼看见真正的变化。',scenario:'适合布光对比、收纳整理、稳定效果和剪辑前后。',tools:['三脚架','同一主体','固定曝光'],steps:['先拍“之前”，机位、主体大小和背景尽量保持不变。','标记手机与主体位置，调整过程中不要移动支撑设备。','锁定焦点与曝光后拍“之后”，避免亮度差异误导比较。','剪辑时用直接切换或短叠化，不加遮丑式复杂转场。'],before:'“之前”广角手持且偏暗，“之后”换近景又提亮，比较失真。',after:'两版构图一致，只有布光、稳定或整理状态发生变化。',mistakes:['前后使用不同焦段，主体大小差异盖过真正变化。','一个版本运动、一个版本静止，观众无法判断对比因素。'],prompt:'请为【对比主题】设计同机位前后对比方案，明确哪些条件必须保持不变、唯一改变的因素是什么，以及两版各拍几秒。'},
+{id:'rhythm-cuts',cat:'edit',level:'入门',minutes:8,title:'先按信息剪，再按音乐剪',short:'删掉停顿和重复，让每次切换都有新信息，不为卡点而卡点。',scenario:'适合 15—60 秒短视频。音乐可以辅助节奏，但不应该破坏理解。',tools:['任意剪辑软件','已拍素材'],steps:['先不看音乐，按“结果—问题—演示—行动”排好素材。','删除无信息停顿、重复口头语和动作准备时间。','在动作发生或信息变化处切换镜头，再检查是否连贯。','最后铺音乐，只在重点动作或段落转换处对齐节拍。'],before:'每个鼓点都切一次，画面很热闹但产品重点没看清。',after:'镜头切换跟随信息变化，重点动作恰好落在节拍上。',mistakes:['为了卡满节拍，把有效镜头切得过短。','转场音效比口播还响，干扰内容。'],prompt:'请把我的视频结构【粘贴镜头列表】整理成剪辑顺序。先按信息逻辑删重，再标出适合音乐卡点的 3 个切换位置，不增加无意义转场。'},
+{id:'caption-hierarchy',cat:'edit',level:'入门',minutes:6,title:'字幕只突出关键词',short:'口播字幕与重点标题分层，避免满屏文字互相争抢。',scenario:'适合口播、教程和产品演示，尤其是无声播放场景。',tools:['剪辑软件','两种字重'],steps:['完整口播字幕保持短句，每行尽量只表达一个意思。','从每段里提取一个关键词，用更大字重或主题色强调。','字幕放在统一安全区，避开平台按钮与底部文案区。','整段只保留一套动画规则，关键词出现方式不要频繁变化。'],before:'每句话都换颜色、位置和动画，观众不知道先看哪里。',after:'普通字幕负责阅读，关键词负责记忆，层级始终一致。',mistakes:['字幕逐字跳动太频繁，阅读速度跟不上。','重要文字贴近边缘，被平台界面遮挡。'],prompt:'请把【口播稿】整理成短视频字幕：每行不超过 16 个汉字，并为每段标出一个需要放大的关键词。保持原文意思，不添加新承诺。'},
+{id:'sound-actions',cat:'edit',level:'进阶',minutes:7,title:'用动作音让画面落地',short:'卡扣、放置、旋转等真实声音，比堆满转场音效更自然。',scenario:'适合产品安装、桌面布置、开箱与手工过程。',tools:['手机原始录音','剪辑软件'],steps:['回看素材，找出 2—4 个真正有声音特征的动作。','优先保留现场同步声，必要时再单独补录干净动作音。','音乐音量让位于口播，动作音只短时突出，不持续铺满。','戴耳机和手机外放各检查一次，避免尖锐高频或过响低频。'],before:'每次切镜都加“嗖”的声音，产品真实动作反而听不见。',after:'卡扣合上时有清楚一声，其他段落保持安静和自然。',mistakes:['动作音与画面不同步，晚半拍会显得廉价。','所有声音都拉满，失去层次。'],prompt:'请根据【镜头列表】标出适合保留或补录的动作音，并给出音乐、口播、动作音三者的相对音量与淡入淡出建议。'},
+{id:'cover-title',cat:'growth',level:'入门',minutes:6,title:'封面标题说具体收益',short:'让观众一眼知道内容解决什么，不写空泛的“必看”“震惊”。',scenario:'适合教程、产品演示和创作记录封面。标题与首帧要表达同一个重点。',tools:['一张清楚首帧','一句短标题'],steps:['先写出这条视频实际解决的问题，控制在 12 字左右。','优先使用“对象 + 变化”，例如“窗边光这样更柔和”。','选择主体清楚、留白足够的画面放标题，不挡关键部位。','缩小到手机预览尺寸检查，小字和装饰全部删掉。'],before:'“你一定要知道的五个秘密！！！”',after:'“一个机位，画面不晃了”',mistakes:['封面承诺与正文不一致，短期点击换不来信任。','标题超过两行，手机端无法快速读完。'],prompt:'请为【视频主题】写 10 个中文短视频封面标题，每个不超过 12 字，明确对象和收益，不用“震惊、必看、天花板”等夸张词。'},
+{id:'caption-tags',cat:'growth',level:'入门',minutes:7,title:'文案与标签围绕一个主题',short:'第一句补充画面，标签帮助识别主题，而不是堆热门词。',scenario:'适合 TikTok、Reels、Shorts 的产品与技巧内容发布。',tools:['发布文案','3—8 个相关标签'],steps:['第一句写出观众能从视频获得什么，与封面形成补充而非重复。','第二句补充一个使用场景或真实细节，让内容更具体。','行动提示只留一个，例如保存、评论问题或查看装备清单。','标签按品牌、内容主题、使用场景选择，删掉无关大热词。'],before:'正文只有“好用！冲！”后跟二十个宽泛热门标签。',after:'“窗边逆光时，把主体转 45°。今天这条用手机就能复现。你常遇到哪种光线问题？”',mistakes:['文案重复标题，没有新增信息。','标签与内容无关，主题反而模糊。'],prompt:'请为【视频主题】写一段发布文案：第一句补充画面信息，第二句给真实使用场景，结尾只保留一个互动问题。另给 6 个相关标签，不使用未经证实的销量或效果承诺。'},
+{id:'challenge-7',cat:'growth',level:'进阶',minutes:15,title:'7 天创作挑战',short:'每天只完成一个小任务，从“想创作”走到连续发布。',scenario:'适合刚开始做账号、容易拖延或每次都想一次做到完美的人。',tools:['手机','每天 15—30 分钟','一张计划表'],steps:['第 1 天只定一个主题和受众，不写完整脚本。','第 2 天拍第一条 15 秒粗剪，第 3 天发布并记录一个问题。','第 4—5 天分别练一个画面技巧和一个剪辑技巧，不重做全部流程。','第 6 天改写旧视频开头，第 7 天发布第二版并复盘数据与感受。'],before:'第一天就搭建复杂栏目、设计完整视觉、购买全部设备。',after:'七天围绕同一主题完成两次发布，每天只解决一个瓶颈。',mistakes:['把挑战变成每天高强度生产，无法持续。','只看播放量，不记录自己具体学会了什么。'],prompt:'请为我制定 7 天创作挑战。我的主题是【主题】，平台是【平台】，每天可投入【时间】。每天只安排一个可验收任务，第 3 天和第 7 天各发布一次，最后一天包含复盘。'},
+{id:'one-sentence',cat:'script',level:'入门',minutes:5,title:'一句话先讲清视频',short:'用“为谁 + 解决什么 + 怎么做”检查选题，避免开拍后发散。',scenario:'适合选题阶段和多产品、多功能视频。一句话讲不清，通常意味着内容还需要收窄。',tools:['备忘录','一个真实主题'],steps:['先写目标观众，不写“所有人”，而是“第一次拍口播的人”。','再写一个具体问题，例如“手机总是找不到合适高度”。','最后补解决方法，确保它能在一条视频里演示完。','把与这句话无关的卖点和素材暂时移到下一条。'],before:'“这条视频讲三脚架、布光、剪辑、运营和我的生活。”',after:'“给第一次拍桌面口播的人，用一本书和一个支架找到合适机位。”',mistakes:['一句话里出现多个“以及”，主题仍然过宽。','只写内容形式，不写观众能得到什么。'],prompt:'请把【视频想法】改写成一句话选题，格式为“为【具体观众】，解决【一个问题】，通过【一种可演示方法】”。如果主题过宽，请给出两个可独立拍摄的拆条建议。'},
+{id:'negative-space',cat:'compose',level:'进阶',minutes:6,title:'给字幕留一块负空间',short:'拍摄时就规划文字位置，避免后期把字幕压在主体上。',scenario:'适合封面、产品标题和知识型口播，尤其是竖屏视频。',tools:['手机网格线','预估标题'],steps:['开拍前先写出最长的一句标题，不要只按无字画面构图。','将主体放在与标题相反的一侧，保留相对干净的背景区域。','检查人物动作和产品移动范围，整个过程中都不要侵入文字区。','分别按 9:16 与 1:1 预览裁切，确认重要内容仍在安全区。'],before:'拍完才加标题，只能挡住产品或把文字缩得很小。',after:'主体在右下，左上保留干净墙面，标题完整且不遮主体。',mistakes:['负空间背景太花，文字仍然读不清。','只考虑首帧，后续动作进入字幕区域。'],prompt:'请根据【视频主题】和【标题文字】给出竖屏构图方案：主体位置、字幕位置、动作范围、背景要求和多比例裁切注意事项。'}
+];
+
+/* ============ 状态与工具 ============ */
+const $=id=>document.getElementById(id);
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const safeIds=(key)=>{try{const a=JSON.parse(localStorage.getItem(key)||'[]');return new Set(Array.isArray(a)?a.filter(id=>TIPS.some(t=>t.id===id)):[])}catch{return new Set()}};
+let favorites=safeIds('shotstart-tips-fav'),learned=safeIds('shotstart-tips-learned');
+let activeCat='all',query='',currentTip=null,aiVariant=0,toastTimer;
+const arrow='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14m-5-5 5 5-5 5"/></svg>';
+const bookmark='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M7 4h10v16l-5-3-5 3z"/></svg>';
+function toast(msg){$('toast').textContent=msg;$('toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('show'),1900)}
+function saveSet(key,set){try{localStorage.setItem(key,JSON.stringify([...set]))}catch{toast('浏览器未允许保存，但本次操作仍有效')}}
+function catBadges(t){const c=CATS[t.cat];return `<span class="badge" style="--cat-color:${c.color};--cat-bg:${c.bg}">${c.name}</span><span class="badge neutral">${t.level}</span>`}
+function copyText(text,msg='已复制'){const fallback=()=>{const ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast(msg)}catch{toast('复制失败，请手动选择文字')}ta.remove()};if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(text).then(()=>toast(msg)).catch(fallback)}else fallback()}
+
+/* ============ 首页渲染 ============ */
+function buildFilters(){
+ const all=[['all','全部技巧'],...Object.entries(CATS).map(([id,c])=>[id,c.name])];
+ $('libraryFilters').innerHTML=all.map(([id,name])=>`<button class="filter-chip ${activeCat===id?'active':''}" data-filter="${id}">${name}</button>`).join('');
+ $('heroFilters').innerHTML=Object.entries(CATS).slice(0,4).map(([id,c])=>`<button class="filter-chip" data-filter="${id}">${c.name}</button>`).join('');
+ document.querySelectorAll('[data-filter]').forEach(b=>b.onclick=()=>{activeCat=b.dataset.filter;if(location.hash==='#favorites')location.hash='home';buildFilters();renderTips();$('library').scrollIntoView({behavior:'smooth',block:'start'})});
+}
+function buildCategories(){
+ $('categoryGrid').innerHTML=Object.entries(CATS).map(([id,c])=>{const n=TIPS.filter(t=>t.cat===id).length;return `<button class="category-card" data-cat="${id}" style="--cat-color:${c.color};--cat-bg:${c.bg}"><span class="cat-count">${n} 项</span><span class="cat-icon">${ICONS[c.icon]}</span><strong>${c.name}</strong><span class="en">${c.en}</span><p>${c.desc}</p></button>`}).join('');
+ document.querySelectorAll('[data-cat]').forEach(b=>b.onclick=()=>{activeCat=b.dataset.cat;buildFilters();renderTips();$('library').scrollIntoView({behavior:'smooth'})});
+}
+function visibleTips(){const q=query.trim().toLowerCase();return TIPS.filter(t=>(activeCat==='all'||t.cat===activeCat)&&(!q||[t.title,t.short,t.scenario,t.tools.join(' '),CATS[t.cat].name].join(' ').toLowerCase().includes(q))&&(location.hash!=='#favorites'||favorites.has(t.id)))}
+function renderTips(){
+ const list=visibleTips(),favView=location.hash==='#favorites';
+ $('libraryTitle').textContent=favView?'我的收藏':activeCat==='all'?'全部创作技巧':CATS[activeCat].name;
+ $('resultCount').textContent=`${list.length} 个技巧${query?` · 搜索“${query}”`:''}`;
+ $('tipsGrid').innerHTML=list.map(t=>`<article class="tip-card"><a class="tip-link" href="#detail/${t.id}"><div class="tip-meta">${catBadges(t)}</div><h3>${esc(t.title)}</h3><p>${esc(t.short)}</p><div class="tip-bottom"><span>约 ${t.minutes} 分钟 · ${t.tools[0]}</span>${arrow}</div></a><button class="fav-btn ${favorites.has(t.id)?'on':''}" data-fav="${t.id}" aria-label="${favorites.has(t.id)?'取消收藏':'收藏'}${esc(t.title)}">${bookmark}</button></article>`).join('');
+ $('emptyState').classList.toggle('hidden',list.length>0);$('tipsGrid').classList.toggle('hidden',list.length===0);
+ $('emptyText').textContent=favView&&!favorites.size?'点击技巧卡片右上角的书签，就能把常用技巧放到这里。':'换个关键词，或清除分类后再试试。';
+ document.querySelectorAll('[data-fav]').forEach(b=>b.onclick=()=>toggleFav(b.dataset.fav));
+ updateMeta();
+}
+function toggleFav(id){favorites.has(id)?favorites.delete(id):favorites.add(id);saveSet('shotstart-tips-fav',favorites);toast(favorites.has(id)?'已加入收藏':'已取消收藏');renderTips()}
+function updateMeta(){
+ $('tipTotal').textContent=TIPS.length;$('stepTotal').textContent=TIPS.reduce((n,t)=>n+t.steps.length,0);$('progressRing').setAttribute('aria-valuemax',TIPS.length);
+ $('favCount').textContent=favorites.size;$('learnedCount').textContent=`${learned.size} / ${TIPS.length}`;
+ const pct=Math.round(learned.size/TIPS.length*100);$('progressPct').textContent=pct+'%';$('progressRing').style.setProperty('--progress',pct*3.6+'deg');$('progressRing').setAttribute('aria-valuenow',learned.size);
+}
+function resetFilters(){activeCat='all';query='';$('searchInput').value='';buildFilters();renderTips()}
+
+/* ============ 详情页 ============ */
+function renderDetail(id){
+ const t=TIPS.find(x=>x.id===id);if(!t){location.hash='home';return}currentTip=t;
+ $('homeView').classList.add('hidden');$('aiView').classList.add('hidden');$('detailView').classList.remove('hidden');
+ $('detailCrumb').textContent=t.title;document.title=t.title+' · ShotStart 创作技巧';
+ $('detailMain').innerHTML=`<div class="detail-kicker">${catBadges(t)}</div><h1>${esc(t.title)}</h1><p class="detail-lead">${esc(t.short)}</p><div class="detail-facts"><div class="fact">阅读与准备<strong>约 ${t.minutes} 分钟</strong></div><div class="fact">创作环节<strong>${CATS[t.cat].name}</strong></div><div class="fact">需要准备<strong>${t.tools.map(esc).join(' · ')}</strong></div></div><section class="detail-section"><h2>什么时候用</h2><div class="scenario">${esc(t.scenario)}</div></section><section class="detail-section"><h2>照着做这四步</h2><ol class="step-list">${t.steps.map(s=>`<li>${esc(s)}</li>`).join('')}</ol></section><section class="detail-section"><h2>前后差别</h2><div class="example-grid"><div class="example before"><strong>调整前</strong>${esc(t.before)}</div><div class="example after"><strong>调整后</strong>${esc(t.after)}</div></div></section><section class="detail-section"><h2>别踩这些坑</h2><ul class="mistakes">${t.mistakes.map(m=>`<li>${esc(m)}</li>`).join('')}</ul></section>`;
+ $('promptPreview').textContent=t.prompt;
+ $('markLearned').classList.toggle('on',learned.has(t.id));$('markLearned').textContent=learned.has(t.id)?'已学会 · 点击撤销':'标记为已学会';
+ const related=TIPS.filter(x=>x.cat===t.cat&&x.id!==t.id).slice(0,3);
+ $('relatedList').innerHTML=related.map(x=>`<a class="related-item" href="#detail/${x.id}">${esc(x.title)} →</a>`).join('');
+ window.scrollTo({top:0,behavior:'instant'});
+}
+$('copyPrompt').onclick=()=>{if(currentTip)copyText(currentTip.prompt,'AI 提示词已复制')};
+$('useInAI').onclick=()=>{if(currentTip){$('aiTip').value=currentTip.id;location.hash='ai'}};
+$('markLearned').onclick=()=>{if(!currentTip)return;learned.has(currentTip.id)?learned.delete(currentTip.id):learned.add(currentTip.id);saveSet('shotstart-tips-learned',learned);$('markLearned').classList.toggle('on',learned.has(currentTip.id));$('markLearned').textContent=learned.has(currentTip.id)?'已学会 · 点击撤销':'标记为已学会';updateMeta();toast(learned.has(currentTip.id)?'已记录学习进度':'已撤销学习标记')};
+$('detailBack').onclick=()=>history.length>1?history.back():location.hash='home';
+
+/* ============ 选技巧向导 ============ */
+$('guideBtn').onclick=()=>$('guideDialog').showModal();$('closeGuide').onclick=()=>$('guideDialog').close();
+$('guideDialog').addEventListener('click',e=>{if(e.target===$('guideDialog'))$('guideDialog').close()});
+$('recommendBtn').onclick=()=>{
+ const goal=$('guideGoal').value,time=Number($('guideTime').value);
+ const map={first:['script-15','stable-shot','storyboard-4'],stable:['stable-shot','angles-3','rule-thirds'],light:['window-light','product-light','background-separation'],script:['one-sentence','script-15','storyboard-4'],growth:['cover-title','caption-tags','challenge-7']};
+ let ids=[...map[goal]];ids.sort((a,b)=>{const ta=TIPS.find(x=>x.id===a),tb=TIPS.find(x=>x.id===b);return (ta.minutes<=time?0:1)-(tb.minutes<=time?0:1)||ta.minutes-tb.minutes});
+ $('guideResults').innerHTML=ids.slice(0,2).map((id,i)=>{const t=TIPS.find(x=>x.id===id);return `<a class="guide-result" href="#detail/${id}" data-guide-link><strong>${i===0?'优先推荐':'接着学习'} · ${esc(t.title)}</strong><p>约 ${t.minutes} 分钟 · ${esc(t.short)}</p></a>`}).join('');
+ document.querySelectorAll('[data-guide-link]').forEach(a=>a.addEventListener('click',()=>$('guideDialog').close()));
+};
+
+/* ============ 本地拍摄方案 ============ */
+function buildAiTips(){$('aiTip').innerHTML=Object.entries(CATS).map(([cid,c])=>`<optgroup label="${c.name}">${TIPS.filter(t=>t.cat===cid).map(t=>`<option value="${t.id}">${esc(t.title)}</option>`).join('')}</optgroup>`).join('');$('aiTip').value='script-15'}
+function generatePlan(){
+ const t=TIPS.find(x=>x.id===$('aiTip').value)||TIPS[0],platform=$('aiPlatform').value,p=$('aiProduct').value;
+ const products={tripod:'可调节手机三脚架',stand:'桌面手机支架',starter:'新手创作者套装',phone:'手机'},product=products[p];
+ const hooks={TikTok:['别急着换设备，先改这一个动作。','这个画面问题，一个机位就能解决。','第一次拍视频，先别做复杂准备。'],'Instagram Reels':['把桌面稍微调整一下，画面就清楚了。','一个简单改动，让今天的拍摄更顺手。','你的桌面，也可以是很舒服的小片场。'],'YouTube Shorts':['新手拍视频，先把这一步做好。','用手机拍清楚，其实先需要这一个设置。','今天只解决一个拍摄问题。']};
+ const hook=hooks[platform][aiVariant%3],angle=aiVariant%2===0?'先展示完成效果，再切回准备画面':'直接拍一个最常见的错误动作，然后暂停';aiVariant++;
+ const shots=[
+ {time:'0—3 秒',title:'开场钩子',visual:`${angle}。使用${product}固定构图，画面里只保留一个主体。`,vo:hook},
+ {time:'3—7 秒',title:'真实问题',visual:`拍一个与“${t.title}”相关的常见问题，保留 1 秒停顿，让观众看清差别。`,vo:`很多人不是不会拍，而是这一步没有先想清楚。`},
+ {time:'7—12 秒',title:'技巧演示',visual:`${t.steps[0]} 接着：${t.steps[1]}`,vo:`这次只练“${t.title}”，其他功能先不讲。`},
+ {time:'12—15 秒',title:'结果与行动',visual:`回到与开头一致的结果画面，${product}和主体保持不动，预留字幕空间。`,vo:'先收藏，下一次拍摄照着做一遍。'}];
+ const caption=`今天只练一个技巧：${t.title}。\n${t.short}\n你下一次拍摄最想先改哪一步？`;
+ const tags=`#ShotStart #${platform.replace(/\s/g,'')} #手机拍摄 #创作技巧 #新手创作者 #${CATS[t.cat].name}`;
+ $('aiOutput').innerHTML=`<div class="output-head"><div><h2>${esc(t.title)} · 15 秒四镜方案</h2><p style="font-size:12px;color:var(--muted);margin-top:5px">${esc(platform)} · ${esc(product)}</p></div><span class="output-badge">本地模板草稿</span></div><div class="shot-list">${shots.map((s,i)=>`<div class="shot"><div class="shot-time">${s.time}</div><div><h3>${i+1}. ${s.title}</h3><p>画面：${esc(s.visual)}</p><p class="vo">口播：${esc(s.vo)}</p></div></div>`).join('')}</div><div class="caption-box"><small>发布文案草稿</small><p>${esc(caption)}</p><div class="tags">${esc(tags)}</div></div><div class="output-actions"><button class="primary-btn" id="copyPlan">复制完整方案</button><button class="soft-btn" id="regeneratePlan">换一个开场</button><a class="soft-btn" href="#detail/${t.id}">回看技巧</a></div>`;
+ const plain=`${t.title} · 15 秒四镜方案\n${platform} · ${product}\n\n`+shots.map((s,i)=>`${i+1}. ${s.time} ${s.title}\n画面：${s.visual}\n口播：${s.vo}`).join('\n\n')+`\n\n发布文案\n${caption}\n${tags}\n\n本地模板生成，拍摄与发布前请按真实素材调整。`;
+ $('copyPlan').onclick=()=>copyText(plain,'完整拍摄方案已复制');$('regeneratePlan').onclick=generatePlan;
+}
+
+/* ============ 路由与事件 ============ */
+function route(){
+ const hash=location.hash||'#home';document.title='ShotStart 创作技巧 · Creator Academy';
+ $('navHome').classList.toggle('active',!hash.startsWith('#detail')&&hash!=='#ai'&&hash!=='#favorites');$('navFav').classList.toggle('active',hash==='#favorites');
+ if(hash.startsWith('#detail/')){renderDetail(decodeURIComponent(hash.slice(8)));return}
+ $('detailView').classList.add('hidden');
+ if(hash==='#ai'){$('homeView').classList.add('hidden');$('aiView').classList.remove('hidden');document.title='拍摄方案生成器 · ShotStart';window.scrollTo({top:0,behavior:'instant'});return}
+ $('aiView').classList.add('hidden');$('homeView').classList.remove('hidden');renderTips();
+ if(hash==='#catalog')setTimeout(()=>$('catalog').scrollIntoView({behavior:'smooth'}),30);
+ if(hash==='#favorites')setTimeout(()=>$('library').scrollIntoView({behavior:'smooth'}),30);
+}
+document.querySelectorAll('[data-hash]').forEach(b=>b.onclick=()=>{location.hash=b.dataset.hash});
+document.querySelectorAll('[data-detail]').forEach(b=>b.onclick=()=>{location.hash='detail/'+b.dataset.detail});
+$('searchInput').addEventListener('input',e=>{query=e.target.value.trim();if(location.hash==='#favorites')location.hash='home';renderTips()});
+$('searchInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('library').scrollIntoView({behavior:'smooth'})});
+$('searchBtn').onclick=()=>{query=$('searchInput').value.trim();renderTips();$('library').scrollIntoView({behavior:'smooth'})};
+$('resetFilters').onclick=resetFilters;$('emptyReset').onclick=resetFilters;$('generatePlan').onclick=generatePlan;
+$('backBtn').onclick=()=>{if(history.length>1&&document.referrer){history.back()}else{toast('从店铺入口进入后，可用这里返回原页面');location.hash='home'}};
+document.addEventListener('keydown',e=>{if(e.key==='/'&&!['INPUT','SELECT','TEXTAREA'].includes(document.activeElement.tagName)){e.preventDefault();$('searchInput').focus()}if(e.key==='Escape'&&$('guideDialog').open)$('guideDialog').close()});
+window.addEventListener('hashchange',route);
+buildCategories();buildFilters();buildAiTips();renderTips();route();
+</script>
+</body>
+</html>
+<!--
+店铺接入提示：在 ShotStart 首页添加一张“创作技巧 / Creator Academy”小卡片，
+将卡片链接指向 GitHub Pages 子页面即可：
+<a href="https://ygtemple.github.io/creator-tips/">进入 ShotStart 创作技巧 →</a>
+-->
